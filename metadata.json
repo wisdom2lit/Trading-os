@@ -1,0 +1,6 @@
+{
+  "name": "Axiom TOS",
+  "description": "Personal Trading Operating System for pre-market routines, risk management, execution journaling, funded-account tracking, and behavioral analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
