@@ -1,51 +1,178 @@
+import { useEffect, useRef } from 'react';
+
+interface RippleWave {
+  x: number;
+  y: number;
+  startTime: number;
+  maxRadius: number;
+  hue: 'gold' | 'pale' | 'lime';
+}
+
 export function AtmosphericBackdrop() {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const reducedMotion =
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+    const waves: RippleWave[] = [];
+    let animId = 0;
+    let lastDraw = 0;
+    let lastAmbientSpawn = 0;
+
+    const resize = () => {
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      canvas.width = Math.floor(window.innerWidth * dpr);
+      canvas.height = Math.floor(window.innerHeight * dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    const spawnWave = (
+      x: number,
+      y: number,
+      maxRadius: number,
+      hue: RippleWave['hue']
+    ) => {
+      waves.push({
+        x,
+        y,
+        startTime: performance.now(),
+        maxRadius,
+        hue,
+      });
+      if (waves.length > 10) {
+        waves.shift();
+      }
+    };
+
+    // Subtle reflective ripple on pointer interaction
+    const handlePointerDown = (e: PointerEvent) => {
+      if (reducedMotion) return;
+      const roll = Math.random();
+      const hue: RippleWave['hue'] = roll > 0.8 ? 'lime' : roll > 0.35 ? 'gold' : 'pale';
+      spawnWave(e.clientX, e.clientY, Math.min(window.innerWidth, 440), hue);
+    };
+    window.addEventListener('pointerdown', handlePointerDown, { passive: true });
+
+    // Seed initial luminous liquid mirror ripple
+    spawnWave(window.innerWidth * 0.56, window.innerHeight * 0.42, 480, 'gold');
+
+    const renderFrame = (ts: number) => {
+      animId = window.requestAnimationFrame(renderFrame);
+      if (ts - lastDraw < 34) return; // Smooth ~30fps cap
+      lastDraw = ts;
+
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      ctx.clearRect(0, 0, w, h);
+
+      // Subtle liquid light-caustic wave shimmer across dark mirror
+      if (!reducedMotion) {
+        const phase = ts * 0.00045;
+        for (let band = 0; band < 3; band += 1) {
+          const baseY = h * (0.28 + band * 0.24);
+          ctx.beginPath();
+          for (let x = 0; x <= w; x += 64) {
+            const dy =
+              Math.sin(x * 0.0038 + phase + band * 1.7) * 18 +
+              Math.cos(x * 0.0021 - phase * 0.7) * 10;
+            if (x === 0) ctx.moveTo(x, baseY + dy);
+            else ctx.lineTo(x, baseY + dy);
+          }
+          ctx.strokeStyle =
+            band === 1
+              ? 'rgba(255, 211, 106, 0.032)'
+              : band === 2
+              ? 'rgba(183, 255, 0, 0.018)'
+              : 'rgba(232, 215, 168, 0.025)';
+          ctx.lineWidth = 1.1;
+          ctx.stroke();
+        }
+      }
+
+      if (!reducedMotion && ts - lastAmbientSpawn > 3400) {
+        lastAmbientSpawn = ts;
+        const fx = w * (0.26 + Math.random() * 0.48);
+        const fy = h * (0.24 + Math.random() * 0.52);
+        const roll = Math.random();
+        const hue: RippleWave['hue'] = roll > 0.82 ? 'lime' : roll > 0.4 ? 'gold' : 'pale';
+        spawnWave(fx, fy, 360 + Math.random() * 220, hue);
+      }
+
+      const duration = 5600;
+      for (let i = waves.length - 1; i >= 0; i -= 1) {
+        const wave = waves[i];
+        const age = ts - wave.startTime;
+        if (age >= duration) {
+          waves.splice(i, 1);
+          continue;
+        }
+        const progress = age / duration;
+        const ease = 1 - Math.pow(1 - progress, 2.2);
+        const radius = 16 + wave.maxRadius * ease;
+        const alpha = Math.sin(progress * Math.PI) * 0.16;
+
+        // Primary liquid crest + trailing harmonic reflection ring
+        for (let ring = 0; ring < 2; ring += 1) {
+          const r = radius - ring * 28;
+          if (r <= 4) continue;
+          const ringAlpha = ring === 0 ? alpha : alpha * 0.52;
+          const color =
+            wave.hue === 'gold'
+              ? `rgba(255, 211, 106, ${ringAlpha.toFixed(3)})`
+              : wave.hue === 'lime'
+              ? `rgba(183, 255, 0, ${(ringAlpha * 0.72).toFixed(3)})`
+              : `rgba(232, 215, 168, ${ringAlpha.toFixed(3)})`;
+
+          ctx.beginPath();
+          ctx.ellipse(wave.x, wave.y, r, r * 0.6, 0, 0, Math.PI * 2);
+          ctx.strokeStyle = color;
+          ctx.lineWidth = ring === 0 ? 1.25 : 0.85;
+          ctx.stroke();
+        }
+      }
+    };
+
+    if (!reducedMotion) {
+      animId = window.requestAnimationFrame(renderFrame);
+    }
+
+    return () => {
+      window.cancelAnimationFrame(animId);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('pointerdown', handlePointerDown);
+    };
+  }, []);
+
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#0A0807]"
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-[#050505]"
     >
-      {/* Warm Espresso & Umber Subtle Gradient Depth */}
-      <div className="absolute -top-48 right-[-8%] h-[620px] w-[620px] rounded-full bg-[#2B2018]/45 blur-[150px]" />
-      <div className="absolute top-[22%] left-[-12%] h-[540px] w-[540px] rounded-full bg-[#0E4A38]/18 blur-[150px]" />
-      <div className="absolute bottom-[-18%] right-[16%] h-[480px] w-[660px] rounded-full bg-[#1B4970]/12 blur-[150px]" />
-      <div className="absolute top-[52%] right-[28%] h-[420px] w-[420px] rounded-full bg-[#3A2B20]/20 blur-[140px]" />
+      {/* Deep Black (#050505) & Rich Dark Brown (#24180F) Liquid Mirror Depth */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_54%_22%,rgba(36,24,15,0.68)_0%,rgba(12,9,7,0.92)_48%,rgba(5,5,5,1)_82%)]" />
+      <div className="absolute -top-44 right-[8%] h-[600px] w-[600px] rounded-full bg-[#24180F]/65 blur-[160px]" />
+      <div className="absolute top-[16%] left-[-8%] h-[520px] w-[520px] rounded-full bg-[#FFD36A]/[0.045] blur-[165px]" />
+      <div className="absolute bottom-[-14%] left-[24%] h-[460px] w-[620px] rounded-full bg-[#24180F]/55 blur-[160px]" />
+      <div className="absolute bottom-[12%] right-[-10%] h-[420px] w-[420px] rounded-full bg-[#B7FF00]/[0.028] blur-[170px]" />
 
-      {/* Subtle Warm Architectural Coordinate Grid */}
-      <div className="absolute inset-0 architectural-grid opacity-65" />
+      {/* Subtle Pale-Gold Coordinate Grid */}
+      <div className="absolute inset-0 architectural-grid opacity-60" />
 
-      {/* Faint Warm Ivory & Forest Horizon Line */}
-      <svg
-        viewBox="0 0 1440 360"
-        preserveAspectRatio="none"
-        className="absolute bottom-0 inset-x-0 w-full h-[34vh] opacity-[0.16]"
-      >
-        <defs>
-          <linearGradient id="horizonStrokeWarm" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#17694F" stopOpacity="0.1" />
-            <stop offset="48%" stopColor="#E6DCCB" stopOpacity="0.48" />
-            <stop offset="82%" stopColor="#1C4C76" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#17694F" stopOpacity="0.1" />
-          </linearGradient>
-          <linearGradient id="horizonFillWarm" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#17694F" stopOpacity="0.14" />
-            <stop offset="60%" stopColor="#2B2018" stopOpacity="0.06" />
-            <stop offset="100%" stopColor="#0A0807" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <path
-          d="M0 294 L110 282 L185 286 L290 252 L375 262 L480 218 L560 228 L675 182 L770 198 L890 148 L975 164 L1110 116 L1235 130 L1340 92 L1440 100 L1440 360 L0 360 Z"
-          fill="url(#horizonFillWarm)"
-        />
-        <path
-          d="M0 294 L110 282 L185 286 L290 252 L375 262 L480 218 L560 228 L675 182 L770 198 L890 148 L975 164 L1110 116 L1235 130 L1340 92 L1440 100"
-          fill="none"
-          stroke="url(#horizonStrokeWarm)"
-          strokeWidth="1.2"
-        />
-      </svg>
+      {/* Dark Reflective Liquid Water-Ripple & Caustic Layer */}
+      <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" />
 
-      {/* Soft Espresso Perimeter Vignette */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_38%,transparent_42%,rgba(10,8,7,0.78)_100%)]" />
+      {/* Soft Obsidian Perimeter Vignette */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_42%,transparent_36%,rgba(5,5,5,0.85)_100%)]" />
     </div>
   );
 }

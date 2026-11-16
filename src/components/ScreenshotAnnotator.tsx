@@ -28,9 +28,9 @@ interface ScreenshotAnnotatorProps {
 }
 
 const PALETTE = [
-  { label: 'Ivory', hex: '#FAF6EF' },
-  { label: 'Emerald', hex: '#2FA47C' },
-  { label: 'Sapphire', hex: '#3571A5' },
+  { label: 'Glowing Gold', hex: '#FFD36A' },
+  { label: 'Pale Gold', hex: '#E8D7A8' },
+  { label: 'Electric Lime', hex: '#B7FF00' },
   { label: 'Profit Green', hex: '#10B981' },
   { label: 'Loss Rose', hex: '#F43F5E' },
 ];
@@ -48,7 +48,7 @@ export function ScreenshotAnnotator({
   const [phase, setPhase] = useState<'Before' | 'After'>(initialPhase);
   const [caption, setCaption] = useState(initialCaption);
   const [activeTool, setActiveTool] = useState<AnnotationTool>('line');
-  const [activeColor, setActiveColor] = useState<string>('#2FA47C');
+  const [activeColor, setActiveColor] = useState<string>('#FFD36A');
   const [shapes, setShapes] = useState<ShapeAnnotation[]>([]);
   const [draftShape, setDraftShape] = useState<ShapeAnnotation | null>(null);
   const [pendingTextPos, setPendingTextPos] = useState<{ x: number; y: number } | null>(null);
@@ -80,7 +80,7 @@ export function ScreenshotAnnotator({
     if (img) {
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     } else {
-      ctx.fillStyle = '#15110E';
+      ctx.fillStyle = '#0B0806';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 
@@ -117,7 +117,7 @@ export function ScreenshotAnnotator({
         const padX = 8;
         const boxW = metrics.width + padX * 2;
         const boxH = 24;
-        ctx.fillStyle = 'rgba(10, 8, 7, 0.88)';
+        ctx.fillStyle = 'rgba(10, 7, 5, 0.92)';
         ctx.fillRect(s.x1 - 2, s.y1 - 18, boxW, boxH);
         ctx.strokeStyle = s.color;
         ctx.lineWidth = 1;
@@ -222,14 +222,14 @@ export function ScreenshotAnnotator({
       aria-modal="true"
       aria-label="Chart Screenshot Annotation Studio"
     >
-      <div className="liquid-glass-elevated w-full max-w-5xl rounded-[28px] p-6 sm:p-7 space-y-5 my-auto">
+      <div className="glass-elevated w-full max-w-5xl rounded-[28px] p-6 sm:p-7 space-y-5 my-auto">
         {/* Toolbar Header */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#FAF6EF]/15">
+        <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#E8D7A8]/14">
           <div>
-            <h3 className="font-display text-lg font-semibold text-[#FAF6EF]">
+            <h3 className="font-display text-xl font-extrabold text-[#FAF6EE]">
               Chart Annotation Studio
             </h3>
-            <p className="text-xs text-[#B7ADA0]">
+            <p className="text-xs sm:text-sm font-semibold text-[#C9BA9E]">
               Draw lines, zone rectangles, or click to place text callouts directly on your chart.
             </p>
           </div>
@@ -237,9 +237,9 @@ export function ScreenshotAnnotator({
             type="button"
             onClick={onCancel}
             aria-label="Close annotation studio"
-            className="p-2 text-[#B7ADA0] hover:text-[#FAF6EF] rounded-xl hover:bg-white/[0.08] transition-colors"
+            className="glass-control p-2.5 rounded-xl"
           >
-            <X className="w-4 h-4" />
+            <X className="w-4 h-4 text-[#B7FF00]" />
           </button>
         </div>
 
@@ -247,16 +247,16 @@ export function ScreenshotAnnotator({
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex flex-wrap items-center gap-2.5">
             {/* Phase Selector */}
-            <div className="inline-flex rounded-xl liquid-glass-inset p-1 gap-1">
+            <div className="flex items-center gap-1.5">
               {(['Before', 'After'] as const).map((p) => (
                 <button
                   key={p}
                   type="button"
                   onClick={() => setPhase(p)}
-                  className={`px-3 py-1 text-xs font-medium rounded-lg transition-colors ${
+                  className={`px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
                     phase === p
-                      ? 'bg-[#0E4A38]/70 text-[#FAF6EF] border border-[#258767]/50'
-                      : 'text-[#B7ADA0] hover:text-[#FAF6EF] border border-transparent'
+                      ? 'glass-control-active text-[#F4FFCC]'
+                      : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                   }`}
                 >
                   {p}
@@ -265,41 +265,41 @@ export function ScreenshotAnnotator({
             </div>
 
             {/* Tool Buttons */}
-            <div className="inline-flex rounded-xl liquid-glass-inset p-1 gap-1">
+            <div className="flex items-center gap-1.5">
               <button
                 type="button"
                 onClick={() => setActiveTool('line')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-lg transition-colors ${
+                className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
                   activeTool === 'line'
-                    ? 'bg-[#0E4A38]/70 text-[#FAF6EF] border border-[#258767]/50'
-                    : 'text-[#B7ADA0] hover:text-[#FAF6EF] border border-transparent'
+                    ? 'glass-control-active text-[#F4FFCC]'
+                    : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                 }`}
               >
-                <Minus className="w-3.5 h-3.5 -rotate-45" />
+                <Minus className="w-3.5 h-3.5 -rotate-45 text-[#B7FF00]" />
                 <span>Line</span>
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTool('rect')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-lg transition-colors ${
+                className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
                   activeTool === 'rect'
-                    ? 'bg-[#0E4A38]/70 text-[#FAF6EF] border border-[#258767]/50'
-                    : 'text-[#B7ADA0] hover:text-[#FAF6EF] border border-transparent'
+                    ? 'glass-control-active text-[#F4FFCC]'
+                    : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                 }`}
               >
-                <Square className="w-3.5 h-3.5" />
+                <Square className="w-3.5 h-3.5 text-[#B7FF00]" />
                 <span>Zone Box</span>
               </button>
               <button
                 type="button"
                 onClick={() => setActiveTool('text')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-lg transition-colors ${
+                className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
                   activeTool === 'text'
-                    ? 'bg-[#0E4A38]/70 text-[#FAF6EF] border border-[#258767]/50'
-                    : 'text-[#B7ADA0] hover:text-[#FAF6EF] border border-transparent'
+                    ? 'glass-control-active text-[#F4FFCC]'
+                    : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                 }`}
               >
-                <Type className="w-3.5 h-3.5" />
+                <Type className="w-3.5 h-3.5 text-[#B7FF00]" />
                 <span>Text Label</span>
               </button>
             </div>
@@ -314,8 +314,8 @@ export function ScreenshotAnnotator({
                   aria-label={`Annotation color ${c.label}`}
                   className={`w-5 h-5 rounded-lg border transition-transform ${
                     activeColor === c.hex
-                      ? 'scale-110 ring-2 ring-[#FAF6EF] ring-offset-2 ring-offset-[#1D1713]'
-                      : 'border-[#FAF6EF]/30 opacity-75 hover:opacity-100'
+                      ? 'scale-110 ring-2 ring-[#B7FF00] ring-offset-2 ring-offset-[#050505]'
+                      : 'border-[#E8D7A8]/30 opacity-75 hover:opacity-100'
                   }`}
                   style={{ backgroundColor: c.hex }}
                 />
@@ -328,16 +328,16 @@ export function ScreenshotAnnotator({
               type="button"
               onClick={() => setShapes((prev) => prev.slice(0, -1))}
               disabled={shapes.length === 0}
-              className="btn-ivory-glass inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-[#FAF6EF] rounded-xl disabled:opacity-40"
+              className="glass-control inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-xl disabled:opacity-40"
             >
-              <Undo2 className="w-3.5 h-3.5" />
+              <Undo2 className="w-3.5 h-3.5 text-[#B7FF00]" />
               <span>Undo</span>
             </button>
             <button
               type="button"
               onClick={() => setShapes([])}
               disabled={shapes.length === 0}
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs text-rose-300 bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/30 rounded-xl disabled:opacity-40 transition-colors"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold text-rose-300 bg-rose-500/15 hover:bg-rose-500/25 border border-rose-500/35 rounded-xl disabled:opacity-40 transition-colors"
             >
               <Trash2 className="w-3.5 h-3.5" />
               <span>Clear</span>
@@ -349,27 +349,27 @@ export function ScreenshotAnnotator({
         {pendingTextPos && (
           <form
             onSubmit={commitTextAnnotation}
-            className="flex flex-wrap items-center gap-2.5 p-3.5 rounded-2xl liquid-glass-inset border border-[#258767]/50"
+            className="flex flex-wrap items-center gap-2.5 pt-2"
           >
-            <span className="text-xs text-[#3FA17F] font-mono">Text label:</span>
+            <span className="text-xs text-[#B7FF00] font-mono font-bold">Text label:</span>
             <input
               type="text"
               autoFocus
               value={textInput}
               onChange={(e) => setTextInput(e.target.value)}
               placeholder="e.g., 15m ORB Entry, CISD, FVG Sweep..."
-              className="tos-input flex-1 min-w-[200px] px-3.5 py-2 text-xs"
+              className="tos-input flex-1 min-w-[200px] px-4 py-2.5 text-xs sm:text-sm"
             />
             <button
               type="submit"
-              className="btn-emerald-glass px-3.5 py-2 text-xs font-semibold text-[#FAF6EF] rounded-xl"
+              className="glass-lime-cta px-4 py-2.5 text-xs font-extrabold rounded-xl"
             >
               Place Text
             </button>
             <button
               type="button"
               onClick={() => setPendingTextPos(null)}
-              className="px-2.5 py-2 text-xs text-[#B7ADA0] hover:text-[#FAF6EF]"
+              className="glass-control px-3 py-2.5 text-xs font-bold rounded-xl"
             >
               Cancel
             </button>
@@ -377,7 +377,7 @@ export function ScreenshotAnnotator({
         )}
 
         {/* Interactive Drawing Canvas */}
-        <div className="rounded-2xl border border-[#FAF6EF]/15 bg-[#120E0C] overflow-hidden flex items-center justify-center">
+        <div className="rounded-2xl border border-[#E8D7A8]/18 bg-[#090705] overflow-hidden flex items-center justify-center">
           <canvas
             ref={canvasRef}
             width={canvasDims.w}
@@ -397,23 +397,23 @@ export function ScreenshotAnnotator({
             value={caption}
             onChange={(e) => setCaption(e.target.value)}
             placeholder="Screenshot caption (e.g., 5m FVG retest after NY 15m ORB break)"
-            className="tos-input flex-1 px-3.5 py-2.5 text-xs"
+            className="tos-input flex-1 px-4 py-2.5 text-xs sm:text-sm"
           />
 
           <div className="flex items-center gap-2.5 shrink-0">
             <button
               type="button"
               onClick={onCancel}
-              className="px-4 py-2 text-xs font-medium text-[#B7ADA0] hover:text-[#FAF6EF] rounded-xl transition-colors"
+              className="glass-control px-4 py-2.5 text-xs font-bold rounded-xl"
             >
               Cancel
             </button>
             <button
               type="button"
               onClick={handleSave}
-              className="btn-emerald-glass inline-flex items-center gap-1.5 px-4.5 py-2 text-xs font-semibold text-[#FAF6EF] rounded-xl"
+              className="glass-lime-cta inline-flex items-center gap-1.5 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
             >
-              <Check className="w-3.5 h-3.5" />
+              <Check className="w-4 h-4 stroke-[3]" />
               <span>Save Annotated Screenshot</span>
             </button>
           </div>

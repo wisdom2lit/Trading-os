@@ -1,9 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
 import { AtmosphericBackdrop } from './components/AtmosphericBackdrop';
+import { BottomNav } from './components/BottomNav';
 import { ChecklistView } from './components/ChecklistView';
 import { DashboardView } from './components/DashboardView';
 import { HomeView } from './components/HomeView';
-import { BottomNav } from './components/BottomNav';
+import { OfflineIndicator } from './components/OfflineIndicator';
 import { ToolsModal } from './components/ToolsModal';
 import { TradesView } from './components/TradesView';
 import { computeAnalytics } from './core/analytics';
@@ -79,13 +80,6 @@ export default function App() {
   const todayKey = now.toISOString().slice(0, 10);
   const todayRecord =
     state.checklistRecords[todayKey] || createDefaultChecklistRecord(todayKey);
-
-  const recentAccountTrades = useMemo(() => {
-    if (!activeAccount) return [];
-    return state.trades
-      .filter((t) => t.accountId === activeAccount.id)
-      .sort((a, b) => new Date(b.entryTime).getTime() - new Date(a.entryTime).getTime());
-  }, [state.trades, activeAccount]);
 
   const handleSaveChecklistRecord = (record: DailyChecklistRecord) => {
     setState((prev) => ({
@@ -220,8 +214,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0807] text-[#F5EFE6] relative selection:bg-[#17694F]/45 selection:text-[#FAF6EF]">
+    <div className="min-h-screen bg-[#050505] text-[#FAF6EE] relative overflow-x-clip selection:bg-[#FFD36A]/30 selection:text-[#FFF9EA]">
       <AtmosphericBackdrop />
+      <OfflineIndicator />
 
       <div className="relative z-10">
         <main className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10 pt-7 sm:pt-10 pb-28 sm:pb-32">
@@ -243,21 +238,15 @@ export default function App() {
               account={activeAccount}
               analytics={analytics}
               selectedInstrument={state.selectedInstrument}
-              watchlist={state.watchlist}
-              onSelectInstrument={(symbol) =>
-                setState((prev) => ({ ...prev, selectedInstrument: symbol }))
-              }
               sessions={sessionSnapshot.sessions}
               orbWindows={orbWindows}
               utcTimeLabel={sessionSnapshot.utcTimeLabel}
               activeSessionLabel={sessionSnapshot.activeLabel}
               todayRecord={todayRecord}
               checklistItems={state.checklistItems}
-              recentTrades={recentAccountTrades}
               onNavigate={setActiveSection}
               onOpenNewTrade={handleOpenNewTrade}
               onOpenTool={(tab) => setToolModalTab(tab)}
-              onInspectTrade={handleInspectTrade}
             />
           )}
 

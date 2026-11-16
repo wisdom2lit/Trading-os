@@ -205,29 +205,29 @@ export function TradesView({
 
   return (
     <div className="space-y-8">
-      {/* Header & Frosted Filter Strip */}
-      <section className="space-y-5">
+      {/* Header & Open Floating Search / Filter Controls (Zero Parent Box) */}
+      <section className="space-y-6">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <div className="text-xs font-mono text-[#3FA17F] mb-1.5">
+            <div className="text-xs sm:text-sm font-mono font-bold text-[#B7FF00] mb-1.5">
               {account
                 ? `${account.name} · ${filteredTrades.length} of ${accountTrades.length} executions shown`
                 : 'No account connected · Connect an account to journal executions'}
             </div>
-            <h1 className="font-display text-2xl sm:text-3xl font-semibold text-[#FAF6EF]">
+            <h1 className="font-display text-3xl sm:text-4xl font-extrabold text-[#FAF6EE]">
               Execution Journal
             </h1>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-3">
             {account ? (
               <>
                 <button
                   type="button"
                   onClick={() => setShowMt5Modal(true)}
-                  className="btn-ivory-glass inline-flex items-center gap-2 px-4 py-2 text-xs font-medium text-[#FAF6EF] rounded-xl"
+                  className="glass-control inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl"
                 >
-                  <FileSpreadsheet className="w-3.5 h-3.5 text-[#3571A5]" />
+                  <FileSpreadsheet className="w-4 h-4 text-[#B7FF00]" />
                   <span>Import MT5 CSV</span>
                 </button>
 
@@ -237,9 +237,9 @@ export function TradesView({
                     setEditingTrade(null);
                     onOpenNewTradeModal();
                   }}
-                  className="btn-emerald-glass inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-[#FAF6EF] rounded-xl"
+                  className="glass-lime-cta inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
                 >
-                  <Plus className="w-3.5 h-3.5" />
+                  <Plus className="w-4 h-4 stroke-[3]" />
                   <span>Log New Trade</span>
                 </button>
               </>
@@ -247,26 +247,26 @@ export function TradesView({
               <button
                 type="button"
                 onClick={onOpenAccountSettings}
-                className="btn-emerald-glass inline-flex items-center gap-2 px-4 py-2 text-xs font-semibold text-[#FAF6EF] rounded-xl"
+                className="glass-lime-cta inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
               >
-                <Wallet className="w-3.5 h-3.5" />
+                <Wallet className="w-4 h-4 stroke-[2.5]" />
                 <span>Connect Account First</span>
               </button>
             )}
           </div>
         </div>
 
-        {/* Milky-Ivory Frosted Search & Filters Bar */}
-        <div className="liquid-glass-subtle rounded-[22px] p-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+        {/* Floating Search & Filters Directly on Open Background */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
           <div className="lg:col-span-2 relative">
-            <Search className="w-3.5 h-3.5 text-[#9A8F83] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-4 h-4 text-[#B7FF00] absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search instrument, setup, reasoning, emotion..."
               aria-label="Search trades"
-              className="tos-input w-full pl-9 pr-3.5 py-2.5 text-xs"
+              className="tos-input w-full pl-11 pr-4 py-3 text-xs sm:text-sm"
             />
           </div>
 
@@ -274,7 +274,7 @@ export function TradesView({
             value={sessionFilter}
             onChange={(e) => setSessionFilter(e.target.value)}
             aria-label="Filter by session"
-            className="tos-input px-3.5 py-2.5 text-xs"
+            className="tos-input px-4 py-3 text-xs sm:text-sm"
           >
             <option value="All">All Sessions</option>
             {SESSIONS.map((s) => (
@@ -288,7 +288,7 @@ export function TradesView({
             value={directionFilter}
             onChange={(e) => setDirectionFilter(e.target.value)}
             aria-label="Filter by direction"
-            className="tos-input px-3.5 py-2.5 text-xs"
+            className="tos-input px-4 py-3 text-xs sm:text-sm"
           >
             <option value="All">Long &amp; Short</option>
             <option value="Long">Long Only</option>
@@ -299,7 +299,7 @@ export function TradesView({
             value={gradeFilter}
             onChange={(e) => setGradeFilter(e.target.value)}
             aria-label="Filter by setup grade"
-            className="tos-input px-3.5 py-2.5 text-xs"
+            className="tos-input px-4 py-3 text-xs sm:text-sm"
           >
             <option value="All">All Setup Grades</option>
             {GRADES.map((g) => (
@@ -312,27 +312,27 @@ export function TradesView({
       </section>
 
       {/* Open Ledger Table */}
-      <section className="border-b border-[#FAF6EF]/12 pb-4">
+      <section className="border-t border-b border-[#E8D7A8]/14 py-4">
         {!account ? (
-          <div className="liquid-glass rounded-[28px] py-16 px-6 text-center space-y-3.5">
-            <p className="text-sm text-[#FAF6EF] font-medium">
+          <div className="py-16 px-4 text-center space-y-4">
+            <p className="font-display text-lg font-extrabold text-[#FAF6EE]">
               No trading account connected yet.
             </p>
-            <p className="text-xs text-[#B7ADA0] max-w-md mx-auto leading-relaxed">
+            <p className="text-xs sm:text-sm font-semibold text-[#C9BA9E] max-w-md mx-auto leading-relaxed">
               Create or connect an account with your starting capital before logging live or backtested executions.
             </p>
             <button
               type="button"
               onClick={onOpenAccountSettings}
-              className="btn-emerald-glass inline-flex items-center gap-2 px-5 py-2.5 text-xs font-semibold text-[#FAF6EF] rounded-xl"
+              className="glass-lime-cta inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-extrabold rounded-xl"
             >
-              <Wallet className="w-3.5 h-3.5" />
+              <Wallet className="w-4 h-4 stroke-[2.5]" />
               <span>Create Trading Account</span>
             </button>
           </div>
         ) : filteredTrades.length === 0 ? (
-          <div className="liquid-glass rounded-[28px] py-16 px-6 text-center space-y-3.5">
-            <p className="text-sm text-[#EFE7DC]">
+          <div className="py-16 px-4 text-center space-y-4">
+            <p className="font-display text-lg font-extrabold text-[#E8D7A8]">
               {accountTrades.length === 0
                 ? 'Your execution journal is currently empty.'
                 : 'No trades match your active filters.'}
@@ -350,67 +350,71 @@ export function TradesView({
                   setGradeFilter('All');
                 }
               }}
-              className="btn-emerald-glass px-5 py-2.5 text-xs font-semibold text-[#FAF6EF] rounded-xl"
+              className={
+                accountTrades.length === 0
+                  ? 'glass-lime-cta px-6 py-3 text-xs sm:text-sm font-extrabold rounded-xl'
+                  : 'glass-control px-6 py-3 text-xs sm:text-sm font-bold rounded-xl'
+              }
             >
               {accountTrades.length === 0 ? 'Log First Trade' : 'Clear Filters'}
             </button>
           </div>
         ) : (
           <div className="overflow-x-auto">
-            <table className="w-full text-xs">
+            <table className="w-full text-xs sm:text-sm">
               <thead>
-                <tr className="border-b border-[#FAF6EF]/15 text-[#B7ADA0]">
-                  <th className="py-3 pr-4 text-left font-medium">Date &amp; Session</th>
-                  <th className="py-3 px-3 text-left font-medium">Instrument</th>
-                  <th className="py-3 px-3 text-left font-medium">Setup &amp; Confluences</th>
-                  <th className="py-3 px-3 text-right font-medium">Entry / Exit</th>
-                  <th className="py-3 px-3 text-right font-medium">Lots · Risk</th>
-                  <th className="py-3 px-3 text-right font-medium">Grade</th>
-                  <th className="py-3 px-3 text-right font-medium">Net P&amp;L</th>
-                  <th className="py-3 pl-4 text-right font-medium">Actions</th>
+                <tr className="border-b border-[#E8D7A8]/16 text-[#C9BA9E]">
+                  <th className="py-3 pr-4 text-left font-bold">Date &amp; Session</th>
+                  <th className="py-3 px-3 text-left font-bold">Instrument</th>
+                  <th className="py-3 px-3 text-left font-bold">Setup &amp; Confluences</th>
+                  <th className="py-3 px-3 text-right font-bold">Entry / Exit</th>
+                  <th className="py-3 px-3 text-right font-bold">Lots · Risk</th>
+                  <th className="py-3 px-3 text-right font-bold">Grade</th>
+                  <th className="py-3 px-3 text-right font-bold">Net P&amp;L</th>
+                  <th className="py-3 pl-4 text-right font-bold">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#FAF6EF]/10">
+              <tbody className="divide-y divide-[#E8D7A8]/10">
                 {filteredTrades.map((trade) => {
                   const isConfirming = confirmDeleteId === trade.id;
                   return (
                     <tr
                       key={trade.id}
-                      className="hover:bg-[#FAF6EF]/[0.04] transition-colors group"
+                      className="hover:bg-[#E8D7A8]/[0.04] transition-colors group"
                     >
-                      <td className="py-3.5 pr-4 whitespace-nowrap">
-                        <div className="font-mono text-[#FAF6EF] tabular-nums">
+                      <td className="py-4 pr-4 whitespace-nowrap">
+                        <div className="font-mono font-bold text-[#FAF6EE] tabular-nums">
                           {formatShortDate(trade.entryTime)} · {formatTimeUtc(trade.entryTime)}
                         </div>
-                        <div className="text-[11px] text-[#9A8F83]">{trade.session}</div>
+                        <div className="text-xs font-semibold text-[#9C8C72]">{trade.session}</div>
                       </td>
 
-                      <td className="py-3 px-3 whitespace-nowrap">
+                      <td className="py-3.5 px-3 whitespace-nowrap">
                         <div className="flex items-center gap-2">
-                          <span className="font-mono font-semibold text-[#FAF6EF]">
+                          <span className="font-mono font-extrabold text-[#FAF6EE]">
                             {trade.instrument}
                           </span>
                           <span
-                            className={`text-[11px] font-medium ${
+                            className={`text-xs font-extrabold ${
                               trade.direction === 'Long' ? 'text-emerald-400' : 'text-rose-400'
                             }`}
                           >
                             {trade.direction}
                           </span>
                         </div>
-                        <div className="text-[11px] text-[#9A8F83]">{trade.status}</div>
+                        <div className="text-xs font-semibold text-[#9C8C72]">{trade.status}</div>
                       </td>
 
-                      <td className="py-3 px-3 max-w-[260px]">
+                      <td className="py-3.5 px-3 max-w-[260px]">
                         <button
                           type="button"
                           onClick={() => setInspectedTradeId(trade.id)}
-                          className="text-left hover:text-[#3FA17F] transition-colors"
+                          className="text-left hover:text-[#B7FF00] transition-colors"
                         >
-                          <div className="font-medium text-[#F5EFE6] truncate">
+                          <div className="font-bold text-[#E8D7A8] truncate">
                             {trade.setupType}
                           </div>
-                          <div className="text-[11px] text-[#9A8F83] truncate">
+                          <div className="text-xs font-semibold text-[#9C8C72] truncate">
                             {trade.emotion}
                             {trade.screenshots.length > 0
                               ? ` · ${trade.screenshots.length} chart${
@@ -421,50 +425,52 @@ export function TradesView({
                         </button>
                       </td>
 
-                      <td className="py-3 px-3 text-right font-mono tabular-nums whitespace-nowrap text-[#D5CBC0]">
+                      <td className="py-3.5 px-3 text-right font-mono font-bold tabular-nums whitespace-nowrap text-[#E8D7A8]">
                         <div>{trade.entryPrice}</div>
-                        <div className="text-[11px] text-[#9A8F83]">
+                        <div className="text-xs font-semibold text-[#9C8C72]">
                           SL {trade.stopLoss} · TP {trade.takeProfit}
                         </div>
                       </td>
 
-                      <td className="py-3 px-3 text-right font-mono tabular-nums whitespace-nowrap">
-                        <div className="text-[#FAF6EF]">{trade.lotSize.toFixed(2)}</div>
-                        <div className="text-[11px] text-[#9A8F83]">
+                      <td className="py-3.5 px-3 text-right font-mono font-bold tabular-nums whitespace-nowrap">
+                        <div className="text-[#FAF6EE]">{trade.lotSize.toFixed(2)}</div>
+                        <div className="text-xs font-semibold text-[#9C8C72]">
                           {trade.riskPct}% · {trade.plannedRR}R
                         </div>
                       </td>
 
-                      <td className="py-3 px-3 text-right font-mono whitespace-nowrap">
-                        <div className="text-[#FAF6EF] font-semibold">{trade.setupQuality}</div>
-                        <div className="text-[11px] text-[#9A8F83]">Exec {trade.executionQuality}</div>
+                      <td className="py-3.5 px-3 text-right font-mono font-bold whitespace-nowrap">
+                        <div className="text-[#FFD36A] font-extrabold">{trade.setupQuality}</div>
+                        <div className="text-xs font-semibold text-[#9C8C72]">
+                          Exec {trade.executionQuality}
+                        </div>
                       </td>
 
-                      <td className="py-3 px-3 text-right font-mono tabular-nums whitespace-nowrap">
+                      <td className="py-3.5 px-3 text-right font-mono tabular-nums whitespace-nowrap">
                         <div
-                          className={`font-semibold ${
+                          className={`font-extrabold ${
                             trade.actualPnL > 0
                               ? 'text-emerald-400'
                               : trade.actualPnL < 0
                               ? 'text-rose-400'
-                              : 'text-[#D5CBC0]'
+                              : 'text-[#E8D7A8]'
                           }`}
                         >
                           {formatSignedCurrency(trade.actualPnL, currency)}
                         </div>
-                        <div className="text-[11px] text-[#9A8F83]">
+                        <div className="text-xs font-semibold text-[#9C8C72]">
                           {trade.riskAmount > 0
                             ? `${(trade.actualPnL / trade.riskAmount).toFixed(2)}R`
                             : '—'}
                         </div>
                       </td>
 
-                      <td className="py-3.5 pl-4 text-right whitespace-nowrap">
-                        <div className="inline-flex items-center gap-1">
+                      <td className="py-4 pl-4 text-right whitespace-nowrap">
+                        <div className="inline-flex items-center gap-1.5">
                           <button
                             type="button"
                             onClick={() => setInspectedTradeId(trade.id)}
-                            className="px-2.5 py-1 text-[11px] text-[#3FA17F] hover:bg-[#0E4A38]/40 rounded-lg transition-colors"
+                            className="glass-control px-3 py-1.5 text-xs font-bold rounded-xl"
                           >
                             Inspect
                           </button>
@@ -475,9 +481,9 @@ export function TradesView({
                               onOpenNewTradeModal();
                             }}
                             aria-label={`Edit trade ${trade.instrument} ${trade.setupType}`}
-                            className="p-1.5 text-[#B7ADA0] hover:text-[#FAF6EF] rounded-lg"
+                            className="glass-control p-2 rounded-xl"
                           >
-                            <Edit3 className="w-3.5 h-3.5" />
+                            <Edit3 className="w-3.5 h-3.5 text-[#B7FF00]" />
                           </button>
                           {isConfirming ? (
                             <div className="inline-flex items-center gap-1 ml-1">
@@ -490,14 +496,14 @@ export function TradesView({
                                     closeInspector();
                                   }
                                 }}
-                                className="px-2.5 py-1 text-[11px] bg-rose-500/20 text-rose-300 rounded-lg"
+                                className="px-3 py-1.5 text-xs font-bold bg-rose-500/25 text-rose-200 border border-rose-400/50 rounded-xl"
                               >
                                 Delete
                               </button>
                               <button
                                 type="button"
                                 onClick={() => setConfirmDeleteId(null)}
-                                className="px-1.5 py-1 text-[11px] text-[#B7ADA0]"
+                                className="px-2 py-1 text-xs font-bold text-[#C9BA9E]"
                               >
                                 No
                               </button>
@@ -507,7 +513,7 @@ export function TradesView({
                               type="button"
                               onClick={() => setConfirmDeleteId(trade.id)}
                               aria-label={`Delete trade ${trade.instrument}`}
-                              className="p-1.5 text-[#B7ADA0] hover:text-rose-400 rounded-lg"
+                              className="glass-control p-2 hover:text-rose-400 rounded-xl"
                             >
                               <Trash2 className="w-3.5 h-3.5" />
                             </button>
@@ -531,10 +537,10 @@ export function TradesView({
           aria-modal="true"
           aria-label="Trade Execution Inspector"
         >
-          <div className="liquid-glass-elevated h-full w-full max-w-2xl rounded-l-[28px] overflow-y-auto p-6 sm:p-7 space-y-6 border-l border-[#FAF6EF]/20">
-            <div className="flex items-start justify-between gap-4 pb-4 border-b border-[#FAF6EF]/15">
+          <div className="glass-elevated h-full w-full max-w-2xl rounded-l-[28px] overflow-y-auto p-6 sm:p-7 space-y-6 border-l border-[#E8D7A8]/18">
+            <div className="flex items-start justify-between gap-4 pb-4 border-b border-[#E8D7A8]/14">
               <div>
-                <div className="flex items-center gap-2.5 text-xs text-[#B7ADA0] font-mono">
+                <div className="flex items-center gap-2.5 text-xs sm:text-sm text-[#C9BA9E] font-mono font-bold">
                   <span>{formatShortDate(activeInspectedTrade.entryTime)}</span>
                   <span>·</span>
                   <span>{activeInspectedTrade.session}</span>
@@ -549,7 +555,7 @@ export function TradesView({
                     {activeInspectedTrade.direction}
                   </span>
                 </div>
-                <h2 className="mt-1 font-display text-xl font-semibold text-[#FAF6EF]">
+                <h2 className="mt-1 font-display text-2xl font-extrabold text-[#FAF6EE]">
                   {activeInspectedTrade.instrument} — {activeInspectedTrade.setupType}
                 </h2>
               </div>
@@ -561,7 +567,7 @@ export function TradesView({
                     setEditingTrade(activeInspectedTrade);
                     onOpenNewTradeModal();
                   }}
-                  className="btn-ivory-glass px-3.5 py-1.5 text-xs font-medium text-[#FAF6EF] rounded-xl"
+                  className="glass-control px-4 py-2 text-xs font-bold rounded-xl"
                 >
                   Edit Trade
                 </button>
@@ -569,19 +575,19 @@ export function TradesView({
                   type="button"
                   onClick={closeInspector}
                   aria-label="Close trade inspector"
-                  className="p-2 text-[#B7ADA0] hover:text-[#FAF6EF] rounded-xl hover:bg-white/[0.08] transition-colors"
+                  className="glass-control p-2 rounded-xl"
                 >
-                  <X className="w-4 h-4" />
+                  <X className="w-4 h-4 text-[#B7FF00]" />
                 </button>
               </div>
             </div>
 
-            {/* Key Execution Numbers */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 p-4 rounded-2xl liquid-glass-inset font-mono tabular-nums">
+            {/* Key Execution Numbers — Open Hairline Row (No Nested Box) */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 py-5 border-b border-[#E8D7A8]/14 font-mono tabular-nums">
               <div>
-                <div className="text-[11px] text-[#9A8F83] font-sans">Net P&amp;L</div>
+                <div className="text-xs font-bold text-[#9C8C72] font-sans">Net P&amp;L</div>
                 <div
-                  className={`mt-1 text-base font-semibold ${
+                  className={`mt-1 text-xl font-extrabold ${
                     activeInspectedTrade.actualPnL >= 0 ? 'text-emerald-400' : 'text-rose-400'
                   }`}
                 >
@@ -589,54 +595,54 @@ export function TradesView({
                 </div>
               </div>
               <div>
-                <div className="text-[11px] text-[#9A8F83] font-sans">Position &amp; Risk</div>
-                <div className="mt-1 text-base font-semibold text-[#FAF6EF]">
+                <div className="text-xs font-bold text-[#9C8C72] font-sans">Position &amp; Risk</div>
+                <div className="mt-1 text-xl font-extrabold text-[#FAF6EE]">
                   {activeInspectedTrade.lotSize.toFixed(2)} lots
                 </div>
-                <div className="text-[11px] text-[#B7ADA0]">
+                <div className="text-xs font-semibold text-[#C9BA9E]">
                   {activeInspectedTrade.riskPct}% ({formatCurrency(activeInspectedTrade.riskAmount, currency)})
                 </div>
               </div>
               <div>
-                <div className="text-[11px] text-[#9A8F83] font-sans">Levels</div>
-                <div className="mt-1 text-xs text-[#F5EFE6]">
+                <div className="text-xs font-bold text-[#9C8C72] font-sans">Levels</div>
+                <div className="mt-1 text-sm font-bold text-[#E8D7A8]">
                   Entry {activeInspectedTrade.entryPrice}
                 </div>
-                <div className="text-[11px] text-[#B7ADA0]">
+                <div className="text-xs font-semibold text-[#C9BA9E]">
                   SL {activeInspectedTrade.stopLoss} · TP {activeInspectedTrade.takeProfit}
                 </div>
               </div>
               <div>
-                <div className="text-[11px] text-[#9A8F83] font-sans">Quality Grades</div>
-                <div className="mt-1 text-sm text-[#3FA17F] font-semibold">
+                <div className="text-xs font-bold text-[#9C8C72] font-sans">Quality Grades</div>
+                <div className="mt-1 text-base text-[#B7FF00] font-extrabold">
                   Setup {activeInspectedTrade.setupQuality} · Exec{' '}
                   {activeInspectedTrade.executionQuality}
                 </div>
-                <div className="text-[11px] text-[#B7ADA0]">
+                <div className="text-xs font-semibold text-[#C9BA9E]">
                   {activeInspectedTrade.followedPlan ? 'Followed Plan' : 'Plan Broken'}
                 </div>
               </div>
             </div>
 
-            {/* Journal Notes & Psychology */}
-            <div className="space-y-4 text-xs">
+            {/* Journal Notes & Psychology — Open Unboxed Sections */}
+            <div className="space-y-5 text-xs sm:text-sm">
               <div>
-                <div className="text-[#B7ADA0] mb-1.5">Entry Reasoning &amp; Market Context</div>
-                <p className="p-3.5 rounded-2xl liquid-glass-inset text-[#F5EFE6] leading-relaxed">
+                <div className="font-bold text-[#C9BA9E] mb-1">Entry Reasoning &amp; Market Context</div>
+                <p className="font-semibold text-[#FAF6EE] leading-relaxed">
                   {activeInspectedTrade.entryReasoning || 'No entry reasoning logged.'}
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-4 border-t border-[#E8D7A8]/12">
                 <div>
-                  <div className="text-[#B7ADA0] mb-1.5">Emotional State &amp; Mistakes</div>
-                  <div className="p-3.5 rounded-2xl liquid-glass-inset text-[#F5EFE6] space-y-1">
+                  <div className="font-bold text-[#C9BA9E] mb-1">Emotional State &amp; Mistakes</div>
+                  <div className="font-semibold text-[#E8D7A8] space-y-1">
                     <div>
-                      Emotion: <span className="text-[#3FA17F]">{activeInspectedTrade.emotion}</span>
+                      Emotion: <span className="font-bold text-[#B7FF00]">{activeInspectedTrade.emotion}</span>
                     </div>
                     <div>
                       Mistakes:{' '}
-                      <span className="text-rose-300">
+                      <span className="font-bold text-rose-300">
                         {activeInspectedTrade.mistakes.length > 0
                           ? activeInspectedTrade.mistakes.join(', ')
                           : 'None'}
@@ -646,8 +652,8 @@ export function TradesView({
                 </div>
 
                 <div>
-                  <div className="text-[#B7ADA0] mb-1.5">Lessons Learned</div>
-                  <div className="p-3.5 rounded-2xl liquid-glass-inset text-[#F5EFE6] leading-relaxed">
+                  <div className="font-bold text-[#C9BA9E] mb-1">Lessons Learned</div>
+                  <div className="font-semibold text-[#FAF6EE] leading-relaxed">
                     {activeInspectedTrade.lessonsLearned || 'No post-trade reflection yet.'}
                   </div>
                 </div>
@@ -655,20 +661,20 @@ export function TradesView({
             </div>
 
             {/* Before & After Chart Screenshot Annotation Section */}
-            <div className="pt-4 border-t border-[#FAF6EF]/15 space-y-4">
+            <div className="pt-5 border-t border-[#E8D7A8]/14 space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-3">
                 <div>
-                  <h3 className="font-display text-base font-semibold text-[#FAF6EF]">
+                  <h3 className="font-display text-lg font-extrabold text-[#FAF6EE]">
                     Before &amp; After Chart Screenshots
                   </h3>
-                  <p className="text-xs text-[#B7ADA0]">
+                  <p className="text-xs font-semibold text-[#C9BA9E]">
                     Upload a chart image to mark entry/exit lines, FVG/OB zones, and structure notes.
                   </p>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <label className="btn-ivory-glass inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-[#FAF6EF] rounded-xl cursor-pointer">
-                    <ImagePlus className="w-3.5 h-3.5 text-[#3FA17F]" />
+                  <label className="glass-control inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-xl cursor-pointer">
+                    <ImagePlus className="w-3.5 h-3.5 text-[#B7FF00]" />
                     <span>Upload Before</span>
                     <input
                       type="file"
@@ -682,8 +688,8 @@ export function TradesView({
                     />
                   </label>
 
-                  <label className="btn-ivory-glass inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-medium text-[#FAF6EF] rounded-xl cursor-pointer">
-                    <Upload className="w-3.5 h-3.5 text-[#3571A5]" />
+                  <label className="glass-control inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-xl cursor-pointer">
+                    <Upload className="w-3.5 h-3.5 text-[#B7FF00]" />
                     <span>Upload After</span>
                     <input
                       type="file"
@@ -700,8 +706,8 @@ export function TradesView({
               </div>
 
               {activeInspectedTrade.screenshots.length === 0 ? (
-                <div className="py-8 px-4 rounded-2xl liquid-glass-inset border border-dashed border-[#FAF6EF]/15 text-center space-y-2">
-                  <p className="text-xs text-[#B7ADA0]">
+                <div className="py-8 px-4 rounded-2xl border border-dashed border-[#E8D7A8]/20 text-center space-y-2">
+                  <p className="text-xs text-[#B7A88E]">
                     No screenshots attached to this execution yet.
                   </p>
                   <button
@@ -712,9 +718,9 @@ export function TradesView({
                       c.height = 540;
                       const ctx = c.getContext('2d');
                       if (ctx) {
-                        ctx.fillStyle = '#15110E';
+                        ctx.fillStyle = '#090705';
                         ctx.fillRect(0, 0, c.width, c.height);
-                        ctx.strokeStyle = 'rgba(255,248,236,0.06)';
+                        ctx.strokeStyle = 'rgba(232,215,168,0.09)';
                         ctx.lineWidth = 1;
                         for (let x = 0; x < c.width; x += 48) {
                           ctx.beginPath();
@@ -736,7 +742,7 @@ export function TradesView({
                         caption: `${activeInspectedTrade.instrument} Structure Sketch`,
                       });
                     }}
-                    className="text-xs font-medium text-[#3FA17F] hover:underline"
+                    className="text-xs font-medium text-[#FFD36A] hover:underline"
                   >
                     Or open blank chart sketchpad to annotate levels
                   </button>
@@ -746,15 +752,15 @@ export function TradesView({
                   {activeInspectedTrade.screenshots.map((shot) => (
                     <div
                       key={shot.id}
-                      className="rounded-2xl overflow-hidden border border-[#FAF6EF]/15 bg-[#0F0B09]"
+                      className="rounded-2xl overflow-hidden border border-[#E8D7A8]/16 bg-[#090705]"
                     >
-                      <div className="px-4 py-2.5 flex items-center justify-between border-b border-[#FAF6EF]/12 text-xs">
+                      <div className="px-4 py-2.5 flex items-center justify-between border-b border-[#E8D7A8]/12 text-xs">
                         <div className="flex items-center gap-2 min-w-0">
-                          <span className="font-mono text-[#3FA17F] font-medium">
+                          <span className="font-mono text-[#FFD36A] font-medium">
                             {shot.phase}
                           </span>
-                          <span className="text-[#6E645A]">·</span>
-                          <span className="text-[#F5EFE6] truncate">{shot.caption}</span>
+                          <span className="text-[#E8D7A8]/25">·</span>
+                          <span className="text-[#E8D7A8] truncate">{shot.caption}</span>
                         </div>
                         <div className="flex items-center gap-2.5 shrink-0">
                           <button
@@ -768,7 +774,7 @@ export function TradesView({
                                 caption: shot.caption,
                               })
                             }
-                            className="inline-flex items-center gap-1 text-[#D5CBC0] hover:text-[#3FA17F]"
+                            className="inline-flex items-center gap-1 text-[#E8D7A8] hover:text-[#FFD36A]"
                           >
                             <Pencil className="w-3 h-3" />
                             <span>Annotate</span>
@@ -777,7 +783,7 @@ export function TradesView({
                             type="button"
                             onClick={() => handleDeleteScreenshot(activeInspectedTrade, shot.id)}
                             aria-label={`Delete screenshot ${shot.caption}`}
-                            className="text-[#9A8F83] hover:text-rose-400"
+                            className="text-[#93846C] hover:text-rose-400"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
@@ -787,7 +793,7 @@ export function TradesView({
                         src={shot.dataUrl}
                         alt={shot.caption}
                         referrerPolicy="no-referrer"
-                        className="w-full h-auto max-h-80 object-contain bg-[#0F0B09]"
+                        className="w-full h-auto max-h-80 object-contain bg-[#090705]"
                       />
                     </div>
                   ))}
@@ -1058,14 +1064,14 @@ function TradeFormModal({
     >
       <form
         onSubmit={handleSubmit}
-        className="liquid-glass-elevated w-full max-w-3xl rounded-[28px] p-6 sm:p-7 space-y-5 my-auto max-h-[90vh] overflow-y-auto"
+        className="glass-elevated w-full max-w-3xl rounded-[28px] p-6 sm:p-7 space-y-5 my-auto max-h-[90vh] overflow-y-auto"
       >
-        <div className="flex items-center justify-between pb-3.5 border-b border-[#FAF6EF]/15">
+        <div className="flex items-center justify-between pb-3.5 border-b border-[#E8D7A8]/14">
           <div>
-            <h2 className="font-display text-lg font-semibold text-[#FAF6EF]">
+            <h2 className="font-display text-xl font-extrabold text-[#FAF6EE]">
               {initialTrade ? 'Edit Trade Record' : 'Log New Execution'}
             </h2>
-            <p className="text-xs text-[#B7ADA0]">
+            <p className="text-xs font-bold text-[#C9BA9E]">
               Account: {account.name} (Current Balance {formatCurrency(effectiveBasis, account.currency)})
             </p>
           </div>
@@ -1073,20 +1079,20 @@ function TradeFormModal({
             type="button"
             onClick={onClose}
             aria-label="Close trade form"
-            className="p-2 text-[#B7ADA0] hover:text-[#FAF6EF] rounded-xl hover:bg-white/[0.08] transition-colors"
+            className="glass-control p-2 rounded-xl"
           >
-            <X className="w-4 h-4" />
+            <X className="w-4 h-4 text-[#B7FF00]" />
           </button>
         </div>
 
         {/* Core Execution Parameters */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Instrument</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Instrument</label>
             <select
               value={instrument}
               onChange={(e) => setInstrument(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             >
               {instruments.map((inst) => (
                 <option key={inst.symbol} value={inst.symbol}>
@@ -1097,11 +1103,11 @@ function TradeFormModal({
           </div>
 
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Direction</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Direction</label>
             <select
               value={direction}
               onChange={(e) => setDirection(e.target.value as TradeDirection)}
-              className="tos-input w-full px-3 py-2 text-xs"
+              className="tos-input w-full px-3 py-2 text-xs font-bold"
             >
               <option value="Long">Long</option>
               <option value="Short">Short</option>
@@ -1109,11 +1115,11 @@ function TradeFormModal({
           </div>
 
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Session</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Session</label>
             <select
               value={session}
               onChange={(e) => setSession(e.target.value as TradingSession)}
-              className="tos-input w-full px-3 py-2 text-xs"
+              className="tos-input w-full px-3 py-2 text-xs font-bold"
             >
               {SESSIONS.map((s) => (
                 <option key={s} value={s}>
@@ -1124,11 +1130,11 @@ function TradeFormModal({
           </div>
 
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Status</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Status</label>
             <select
               value={status}
               onChange={(e) => setStatus(e.target.value as TradeStatus)}
-              className="tos-input w-full px-3 py-2 text-xs"
+              className="tos-input w-full px-3 py-2 text-xs font-bold"
             >
               <option value="Closed">Closed</option>
               <option value="Open">Open</option>
@@ -1139,66 +1145,66 @@ function TradeFormModal({
         {/* Prices & Position Sizing */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Entry Price</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Entry Price</label>
             <input
               type="number"
               step="any"
               value={entryPrice}
               onChange={(e) => setEntryPrice(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             />
           </div>
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Stop Loss</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Stop Loss</label>
             <input
               type="number"
               step="any"
               value={stopLoss}
               onChange={(e) => setStopLoss(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             />
           </div>
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Take Profit</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Take Profit</label>
             <input
               type="number"
               step="any"
               value={takeProfit}
               onChange={(e) => setTakeProfit(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             />
           </div>
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Exit Price (opt)</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Exit Price (opt)</label>
             <input
               type="number"
               step="any"
               value={exitPrice}
               onChange={(e) => setExitPrice(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Risk %</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Risk %</label>
             <input
               type="number"
               step="0.05"
               value={riskPct}
               onChange={(e) => setRiskPct(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             />
           </div>
           <div>
             <div className="flex items-center justify-between mb-1">
-              <label className="text-xs text-[#B7ADA0]">Lot Size</label>
+              <label className="text-xs font-bold text-[#C9BA9E]">Lot Size</label>
               {liveRisk.valid && (
                 <button
                   type="button"
                   onClick={applySuggestedLot}
-                  className="text-[11px] font-mono text-[#3FA17F] hover:underline"
+                  className="text-xs font-mono font-extrabold text-[#B7FF00] hover:underline"
                 >
                   Use {liveRisk.lotSize.toFixed(2)} ({liveRisk.riskRewardRatio}R)
                 </button>
@@ -1209,11 +1215,11 @@ function TradeFormModal({
               step="0.01"
               value={lotSize}
               onChange={(e) => setLotSize(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             />
           </div>
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">
               Actual Net P&amp;L ({account.currency})
             </label>
             <input
@@ -1221,7 +1227,7 @@ function TradeFormModal({
               step="0.01"
               value={actualPnL}
               onChange={(e) => setActualPnL(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             />
           </div>
         </div>
@@ -1229,31 +1235,31 @@ function TradeFormModal({
         {/* Timestamps, Strategy & Setup */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Entry Time (UTC)</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Entry Time (UTC)</label>
             <input
               type="datetime-local"
               value={entryTime}
               onChange={(e) => setEntryTime(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             />
           </div>
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Exit Time (UTC)</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Exit Time (UTC)</label>
             <input
               type="datetime-local"
               value={exitTime}
               onChange={(e) => setExitTime(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             />
           </div>
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Market Condition</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Market Condition</label>
             <select
               value={marketCondition}
               onChange={(e) =>
                 setMarketCondition(e.target.value as Trade['marketCondition'])
               }
-              className="tos-input w-full px-3 py-2 text-xs"
+              className="tos-input w-full px-3 py-2 text-xs font-bold"
             >
               {MARKET_CONDITIONS.map((mc) => (
                 <option key={mc} value={mc}>
@@ -1266,29 +1272,29 @@ function TradeFormModal({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Strategy Model</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Strategy Model</label>
             <input
               type="text"
               value={strategy}
               onChange={(e) => setStrategy(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs"
+              className="tos-input w-full px-3 py-2 text-xs font-bold"
             />
           </div>
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Setup Type</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Setup Type</label>
             <input
               type="text"
               value={setupType}
               onChange={(e) => setSetupType(e.target.value)}
-              className="tos-input w-full px-3 py-2 text-xs"
+              className="tos-input w-full px-3 py-2 text-xs font-bold"
             />
           </div>
         </div>
 
         {/* Confluences */}
         <div>
-          <div className="text-xs text-[#B7ADA0] mb-1.5">Confluences Present</div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="text-xs font-bold text-[#C9BA9E] mb-1.5">Confluences Present</div>
+          <div className="flex flex-wrap gap-2">
             {allConfluences.map((conf) => {
               const active = confluencesUsed.includes(conf);
               return (
@@ -1296,10 +1302,10 @@ function TradeFormModal({
                   key={conf}
                   type="button"
                   onClick={() => toggleItem(confluencesUsed, conf, setConfluencesUsed)}
-                  className={`px-3 py-1.5 text-xs rounded-xl border transition-colors ${
+                  className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all ${
                     active
-                      ? 'bg-[#0E4A38]/60 text-[#FAF6EF] border-[#258767]/55'
-                      : 'bg-[#0A0807]/60 text-[#B7ADA0] border-[#FAF6EF]/12 hover:text-[#FAF6EF]'
+                      ? 'glass-control-active'
+                      : 'glass-control text-[#C9BA9E]'
                   }`}
                 >
                   {conf}
@@ -1312,11 +1318,11 @@ function TradeFormModal({
         {/* Psychology, Grading & Mistakes */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Emotion State</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Emotion State</label>
             <select
               value={emotion}
               onChange={(e) => setEmotion(e.target.value as Trade['emotion'])}
-              className="tos-input w-full px-3 py-2 text-xs"
+              className="tos-input w-full px-3 py-2 text-xs font-bold"
             >
               {EMOTIONS.map((em) => (
                 <option key={em} value={em}>
@@ -1326,11 +1332,11 @@ function TradeFormModal({
             </select>
           </div>
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Setup Quality</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Setup Quality</label>
             <select
               value={setupQuality}
               onChange={(e) => setSetupQuality(e.target.value as QualityGrade)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             >
               {GRADES.map((g) => (
                 <option key={g} value={g}>
@@ -1340,11 +1346,11 @@ function TradeFormModal({
             </select>
           </div>
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Execution Quality</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Execution Quality</label>
             <select
               value={executionQuality}
               onChange={(e) => setExecutionQuality(e.target.value as QualityGrade)}
-              className="tos-input w-full px-3 py-2 text-xs font-mono"
+              className="tos-input w-full px-3 py-2 text-xs font-mono font-bold"
             >
               {GRADES.map((g) => (
                 <option key={g} value={g}>
@@ -1356,8 +1362,8 @@ function TradeFormModal({
         </div>
 
         <div>
-          <div className="text-xs text-[#B7ADA0] mb-1.5">Mistakes Tagged</div>
-          <div className="flex flex-wrap gap-1.5">
+          <div className="text-xs font-bold text-[#C9BA9E] mb-1.5">Mistakes Tagged</div>
+          <div className="flex flex-wrap gap-2">
             {MISTAKE_OPTIONS.map((m) => {
               const active = mistakes.includes(m);
               return (
@@ -1365,10 +1371,10 @@ function TradeFormModal({
                   key={m}
                   type="button"
                   onClick={() => toggleItem(mistakes, m, setMistakes)}
-                  className={`px-3 py-1.5 text-xs rounded-xl border transition-colors ${
+                  className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all ${
                     active
-                      ? 'bg-rose-500/20 text-rose-300 border-rose-500/45'
-                      : 'bg-[#0A0807]/60 text-[#B7ADA0] border-[#FAF6EF]/12 hover:text-[#FAF6EF]'
+                      ? 'bg-rose-500/20 text-rose-300 border border-rose-500/45'
+                      : 'glass-control text-[#C9BA9E]'
                   }`}
                 >
                   {m}
@@ -1380,35 +1386,35 @@ function TradeFormModal({
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Entry Reasoning</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Entry Reasoning</label>
             <textarea
               rows={2}
               value={entryReasoning}
               onChange={(e) => setEntryReasoning(e.target.value)}
               placeholder="Why was this trade taken? Structural narrative..."
-              className="tos-input w-full px-3 py-2 text-xs"
+              className="tos-input w-full px-3 py-2 text-xs font-semibold"
             />
           </div>
           <div>
-            <label className="block text-xs text-[#B7ADA0] mb-1">Lessons Learned</label>
+            <label className="block text-xs font-bold text-[#C9BA9E] mb-1">Lessons Learned</label>
             <textarea
               rows={2}
               value={lessonsLearned}
               onChange={(e) => setLessonsLearned(e.target.value)}
               placeholder="Key takeaway for future execution..."
-              className="tos-input w-full px-3 py-2 text-xs"
+              className="tos-input w-full px-3 py-2 text-xs font-semibold"
             />
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-[#FAF6EF]/15">
-          <div className="flex items-center gap-4 text-xs text-[#F5EFE6]">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-3 border-t border-[#E8D7A8]/12">
+          <div className="flex items-center gap-4 text-xs font-bold text-[#E8D7A8]">
             <label className="inline-flex items-center gap-2 cursor-pointer">
               <input
                 type="checkbox"
                 checked={followedPlan}
                 onChange={(e) => setFollowedPlan(e.target.checked)}
-                className="rounded border-[#FAF6EF]/30 bg-[#0A0807] accent-[#258767]"
+                className="rounded border-[#E8D7A8]/30 bg-[#140D09] accent-[#10B981]"
               />
               <span>Followed Trading Plan</span>
             </label>
@@ -1417,24 +1423,24 @@ function TradeFormModal({
                 type="checkbox"
                 checked={isRevengeTrade}
                 onChange={(e) => setIsRevengeTrade(e.target.checked)}
-                className="rounded border-[#FAF6EF]/30 bg-[#0A0807] accent-[#3571A5]"
+                className="rounded border-[#E8D7A8]/30 bg-[#140D09] accent-[#F43F5E]"
               />
               <span>Revenge Trade</span>
             </label>
           </div>
 
           <div className="flex items-center gap-3">
-            {formError && <span className="text-xs text-rose-400">{formError}</span>}
+            {formError && <span className="text-xs font-bold text-rose-400">{formError}</span>}
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-medium text-[#B7ADA0] hover:text-[#FAF6EF] rounded-xl transition-colors"
+              className="glass-control px-4 py-2.5 text-xs font-bold rounded-xl"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="btn-emerald-glass px-5 py-2 text-xs font-semibold text-[#FAF6EF] rounded-xl"
+              className="glass-lime-cta px-6 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
             >
               {initialTrade ? 'Save Changes' : 'Record Trade'}
             </button>
@@ -1501,13 +1507,13 @@ function Mt5ImportModal({
       aria-modal="true"
       aria-label="Import MetaTrader 5 Trade History"
     >
-      <div className="liquid-glass-elevated w-full max-w-2xl rounded-[28px] p-6 sm:p-7 space-y-4">
-        <div className="flex items-center justify-between pb-3.5 border-b border-[#FAF6EF]/15">
+      <div className="glass-elevated w-full max-w-2xl rounded-[28px] p-6 sm:p-7 space-y-4">
+        <div className="flex items-center justify-between pb-3.5 border-b border-[#E8D7A8]/14">
           <div>
-            <h2 className="font-display text-lg font-semibold text-[#FAF6EF]">
+            <h2 className="font-display text-xl font-extrabold text-[#FAF6EE]">
               Import MetaTrader 5 History
             </h2>
-            <p className="text-xs text-[#B7ADA0]">
+            <p className="text-xs font-bold text-[#C9BA9E]">
               Upload or paste MT5 CSV/TSV position history exports into {account.name}.
             </p>
           </div>
@@ -1515,15 +1521,15 @@ function Mt5ImportModal({
             type="button"
             onClick={onClose}
             aria-label="Close MT5 import modal"
-            className="p-2 text-[#B7ADA0] hover:text-[#FAF6EF] rounded-xl hover:bg-white/[0.08] transition-colors"
+            className="glass-control p-2 rounded-xl"
           >
-            <X className="w-4 h-4" />
+            <X className="w-4 h-4 text-[#B7FF00]" />
           </button>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <label className="btn-ivory-glass inline-flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-[#FAF6EF] rounded-xl cursor-pointer">
-            <Upload className="w-3.5 h-3.5 text-[#3FA17F]" />
+          <label className="glass-control inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl cursor-pointer">
+            <Upload className="w-4 h-4 text-[#B7FF00]" />
             <span>Choose MT5 CSV/TSV File</span>
             <input
               type="file"
@@ -1539,7 +1545,7 @@ function Mt5ImportModal({
           <button
             type="button"
             onClick={loadSampleMt5}
-            className="text-xs text-[#3FA17F] hover:underline"
+            className="text-xs font-extrabold text-[#B7FF00] hover:underline"
           >
             Load sample MT5 CSV
           </button>
@@ -1550,15 +1556,15 @@ function Mt5ImportModal({
           value={rawCsv}
           onChange={(e) => setRawCsv(e.target.value)}
           placeholder="Paste MT5 CSV rows with headers (Position, Symbol, Type, Volume, Open Time, Open Price, S/L, T/P, Close Time, Close Price, Commission, Swap, Profit)..."
-          className="tos-input w-full p-3.5 text-xs font-mono"
+          className="tos-input w-full p-4 text-xs font-mono"
         />
 
         {parsed && (
-          <div className="p-3.5 rounded-2xl liquid-glass-inset text-xs space-y-1">
+          <div className="py-2 text-xs font-bold space-y-1">
             {parsed.errors.length > 0 ? (
               <div className="text-rose-400">{parsed.errors.join(' ')}</div>
             ) : (
-              <div className="text-emerald-400 font-mono">
+              <div className="text-emerald-400 font-mono font-extrabold">
                 Ready to import {parsed.trades.length} trade(s) · {parsed.skippedRows} skipped/duplicate
               </div>
             )}
@@ -1569,7 +1575,7 @@ function Mt5ImportModal({
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-xs font-medium text-[#B7ADA0] hover:text-[#FAF6EF] rounded-xl transition-colors"
+            className="glass-control px-4 py-2.5 text-xs font-bold rounded-xl"
           >
             Cancel
           </button>
@@ -1577,7 +1583,7 @@ function Mt5ImportModal({
             type="button"
             disabled={!parsed || parsed.trades.length === 0}
             onClick={() => parsed && onImport(parsed.trades)}
-            className="btn-emerald-glass px-5 py-2 text-xs font-semibold text-[#FAF6EF] rounded-xl disabled:opacity-40"
+            className="glass-lime-cta px-6 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl disabled:opacity-40"
           >
             Import {parsed?.trades.length || 0} Trades
           </button>

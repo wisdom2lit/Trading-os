@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <radialGradient id="bgGlow" cx="50%" cy="38%" r="68%">
+      <stop offset="0%" stop-color="#24180F" />
+      <stop offset="65%" stop-color="#0E0A07" />
+      <stop offset="100%" stop-color="#050505" />
+    </radialGradient>
+    <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFE69A" />
+      <stop offset="55%" stop-color="#FFD36A" />
+      <stop offset="100%" stop-color="#E8D7A8" />
+    </linearGradient>
+    <linearGradient id="prismRim" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8D7A8" stop-opacity="0.95" />
+      <stop offset="55%" stop-color="#FFD36A" stop-opacity="0.92" />
+      <stop offset="100%" stop-color="#B7FF00" stop-opacity="0.82" />
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="url(#bgGlow)" />
+  <circle cx="256" cy="256" r="196" stroke="#E8D7A8" stroke-opacity="0.16" stroke-width="2" />
+  <circle cx="256" cy="256" r="154" stroke="#B7FF00" stroke-opacity="0.14" stroke-width="1.5" />
+  <path
+    d="M256 104L394 378H322L256 244L190 378H118L256 104Z"
+    stroke="url(#prismRim)"
+    stroke-width="22"
+    stroke-linejoin="round"
+  />
+  <path d="M192 318H320" stroke="url(#goldAccent)" stroke-width="24" stroke-linecap="round" />
+</svg>

@@ -12,17 +12,17 @@ interface TradingCalendarHeatmapProps {
 }
 
 const PROFIT_TIER_CLASSES: Record<number, string> = {
-  1: 'bg-emerald-500/14 border-emerald-500/30 text-emerald-200',
-  2: 'bg-emerald-500/24 border-emerald-500/45 text-emerald-100',
-  3: 'bg-emerald-500/38 border-emerald-400/60 text-white',
-  4: 'bg-emerald-500/52 border-emerald-400/80 text-white',
+  1: 'bg-emerald-500/14 border-emerald-500/32 text-emerald-200',
+  2: 'bg-emerald-500/24 border-emerald-500/48 text-emerald-100',
+  3: 'bg-emerald-500/36 border-emerald-400/62 text-[#FAF6EE]',
+  4: 'bg-emerald-500/50 border-emerald-400/82 text-[#FAF6EE] shadow-[0_0_22px_-6px_rgba(16,185,129,0.52)]',
 };
 
 const LOSS_TIER_CLASSES: Record<number, string> = {
-  1: 'bg-rose-500/14 border-rose-500/30 text-rose-200',
-  2: 'bg-rose-500/24 border-rose-500/45 text-rose-100',
-  3: 'bg-rose-500/38 border-rose-400/60 text-white',
-  4: 'bg-rose-500/52 border-rose-400/80 text-white',
+  1: 'bg-rose-500/14 border-rose-500/32 text-rose-200',
+  2: 'bg-rose-500/24 border-rose-500/48 text-rose-100',
+  3: 'bg-rose-500/36 border-rose-400/62 text-[#FAF6EE]',
+  4: 'bg-rose-500/50 border-rose-400/82 text-[#FAF6EE] shadow-[0_0_22px_-6px_rgba(244,63,94,0.48)]',
 };
 
 export function TradingCalendarHeatmap({
@@ -114,13 +114,13 @@ export function TradingCalendarHeatmap({
   }, [selectedDate, trades, account]);
 
   return (
-    <section className="lg:col-span-6 liquid-glass rounded-[28px] p-6 sm:p-7 space-y-5">
-      {/* Header & Month Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#FAF6EF]/15">
+    <section className="lg:col-span-8 glass-surface rounded-[28px] p-5 sm:p-7 space-y-5">
+      {/* Header & Liquid Glass Month Navigation */}
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#E8D7A8]/14">
         <div>
-          <h2 className="font-display text-lg font-semibold text-[#FAF6EF]">Trading Calendar</h2>
-          <p className="text-xs text-[#B7ADA0] mt-0.5">
-            Daily P&amp;L heatmap — click any day to review trade breakdown
+          <h2 className="font-display text-xl sm:text-2xl font-extrabold text-[#FAF6EE]">Trading Calendar</h2>
+          <p className="text-xs sm:text-sm font-semibold text-[#C9BA9E] mt-0.5">
+            Daily profitability heatmap — select any session day to inspect executed trades
           </p>
         </div>
 
@@ -129,80 +129,84 @@ export function TradingCalendarHeatmap({
             type="button"
             onClick={() => shiftMonth(-1)}
             aria-label="Previous month"
-            className="p-2 rounded-xl bg-[#0A0807]/50 hover:bg-white/[0.1] border border-[#FAF6EF]/15 text-[#F5EFE6] transition-colors"
+            className="glass-control p-2.5 rounded-xl"
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4 text-[#B7FF00]" />
           </button>
-          <span className="text-xs font-mono text-[#FAF6EF] min-w-[116px] text-center">
+          <span className="text-xs sm:text-sm font-mono font-extrabold text-[#FAF6EE] min-w-[140px] text-center">
             {monthTitle}
           </span>
           <button
             type="button"
             onClick={() => shiftMonth(1)}
             aria-label="Next month"
-            className="p-2 rounded-xl bg-[#0A0807]/50 hover:bg-white/[0.1] border border-[#FAF6EF]/15 text-[#F5EFE6] transition-colors"
+            className="glass-control p-2.5 rounded-xl"
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4 text-[#B7FF00]" />
           </button>
         </div>
       </div>
 
       {/* Month Summary Strip & Heatmap Scale Legend */}
-      <div className="flex flex-wrap items-center justify-between gap-3 text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm">
         <div className="flex items-center gap-3 font-mono tabular-nums">
           <span
-            className={`font-semibold ${
+            className={`text-base font-extrabold ${
               monthNetPnL > 0
                 ? 'text-emerald-400'
                 : monthNetPnL < 0
                 ? 'text-rose-400'
-                : 'text-[#F5EFE6]'
+                : 'text-[#FAF6EE]'
             }`}
           >
             {formatSignedCurrency(monthNetPnL, currency)}
           </span>
-          <span className="text-[#6E645A]" aria-hidden="true">
+          <span className="text-[#E8D7A8]/30" aria-hidden="true">
             ·
           </span>
-          <span className="text-[#B7ADA0]">
+          <span className="font-bold text-[#C9BA9E]">
             <span className="text-emerald-400">{greenDays}G</span> /{' '}
-            <span className="text-rose-400">{redDays}L</span> ({activeDays}d)
+            <span className="text-rose-400">{redDays}L</span> ({activeDays} active days)
           </span>
         </div>
 
-        {/* Intensity Legend */}
         <div
-          className="flex items-center gap-1.5 text-[11px] text-[#B7ADA0]"
+          className="flex items-center gap-1.5 text-xs font-bold text-[#C9BA9E]"
           aria-label="Heatmap intensity legend"
         >
           <span>Loss</span>
-          <span className="w-3 h-3 rounded bg-rose-500/52 border border-rose-400/80" />
-          <span className="w-3 h-3 rounded bg-rose-500/24 border border-rose-500/45" />
-          <span className="w-3 h-3 rounded bg-[#0A0807]/55 border border-[#FAF6EF]/15" />
-          <span className="w-3 h-3 rounded bg-emerald-500/24 border border-emerald-500/45" />
-          <span className="w-3 h-3 rounded bg-emerald-500/52 border border-emerald-400/80" />
+          <span className="w-3.5 h-3.5 rounded-md bg-rose-500/50 border border-rose-400/80" />
+          <span className="w-3.5 h-3.5 rounded-md bg-rose-500/24 border border-rose-500/48" />
+          <span className="w-3.5 h-3.5 rounded-md bg-[#160F0A] border border-[#E8D7A8]/15" />
+          <span className="w-3.5 h-3.5 rounded-md bg-emerald-500/24 border border-emerald-500/48" />
+          <span className="w-3.5 h-3.5 rounded-md bg-emerald-500/50 border border-emerald-400/80" />
           <span>Profit</span>
         </div>
       </div>
 
       {/* Weekday Headers */}
-      <div className="grid grid-cols-7 gap-2 text-center text-[11px] font-mono text-[#9A8F83]">
+      <div className="grid grid-cols-7 gap-2 sm:gap-2.5 text-center text-xs font-mono font-bold text-[#9C8C72]">
         {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => (
-          <div key={d} className="py-1">
+          <div key={d} className="py-1 uppercase tracking-wider">
             {d}
           </div>
         ))}
       </div>
 
-      {/* Heatmap Grid */}
+      {/* Spacious Liquid Glass Heatmap Grid */}
       <div
-        className="grid grid-cols-7 gap-2"
+        className="grid grid-cols-7 gap-2 sm:gap-2.5"
         role="grid"
         aria-label={`Trading calendar for ${monthTitle}`}
       >
         {calendarCells.map((cell, idx) => {
           if (!cell.day || !cell.dateKey) {
-            return <div key={`empty-${idx}`} className="h-14 rounded-xl bg-[#0A0807]/25" />;
+            return (
+              <div
+                key={`empty-${idx}`}
+                className="min-h-[68px] sm:min-h-[82px] rounded-2xl bg-[#140D09]/35 border border-[#E8D7A8]/[0.05]"
+              />
+            );
           }
 
           const stat = dailyCalendar[cell.dateKey];
@@ -217,8 +221,8 @@ export function TradingCalendarHeatmap({
               : intensity.direction === 'loss'
               ? LOSS_TIER_CLASSES[intensity.tier]
               : stat
-              ? 'bg-[#FAF6EF]/10 border-[#FAF6EF]/25 text-[#FAF6EF]'
-              : 'bg-[#0A0807]/45 border-[#FAF6EF]/10 text-[#9A8F83]';
+              ? 'bg-[#24180F]/65 border-[#E8D7A8]/28 text-[#FAF6EE]'
+              : 'glass-well text-[#9C8C72] hover:border-[#B7FF00]/55 hover:text-[#E8D7A8]';
 
           const accessibleLabel = stat
             ? `${cell.dateKey}: ${formatSignedCurrency(stat.pnl, currency)}, ${stat.tradesCount} trades`
@@ -232,18 +236,18 @@ export function TradingCalendarHeatmap({
               aria-label={accessibleLabel}
               aria-pressed={isSelected}
               data-heatmap-tier={`${intensity.direction}-${intensity.tier}`}
-              className={`h-14 p-1.5 rounded-xl border text-left flex flex-col justify-between transition-all hover:border-[#3FA17F]/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#258767] ${cellTone} ${
-                isSelected ? 'ring-2 ring-[#FAF6EF] ring-offset-2 ring-offset-[#16120F]' : ''
+              className={`min-h-[68px] sm:min-h-[82px] p-2 sm:p-2.5 rounded-2xl border text-left flex flex-col justify-between transition-all hover:scale-[1.015] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B7FF00] ${cellTone} ${
+                isSelected ? 'ring-2 ring-[#B7FF00] ring-offset-2 ring-offset-[#050505]' : ''
               }`}
             >
-              <span className="text-[10px] font-mono opacity-85">{cell.day}</span>
+              <span className="text-xs font-mono font-bold opacity-90">{cell.day}</span>
               {stat && (
-                <div className="leading-tight">
-                  <div className="text-[11px] font-mono font-semibold tabular-nums truncate">
+                <div className="leading-tight space-y-0.5">
+                  <div className="text-xs font-mono font-extrabold tabular-nums truncate">
                     {stat.pnl >= 0 ? '+' : '-'}$
                     {Math.abs(Math.round(stat.pnl)).toLocaleString('en-US')}
                   </div>
-                  <div className="text-[9px] font-mono opacity-80">
+                  <div className="hidden sm:block text-[11px] font-mono font-semibold opacity-85">
                     {stat.tradesCount} {stat.tradesCount === 1 ? 'trade' : 'trades'}
                   </div>
                 </div>
@@ -253,90 +257,88 @@ export function TradingCalendarHeatmap({
         })}
       </div>
 
-      {/* Selected Day Drill-Down Summary */}
+      {/* Selected Day Drill-Down Summary (Unboxed hairline rows) */}
       {selectedDate && (
         <div
-          className="mt-2 pt-4 border-t border-[#FAF6EF]/15 space-y-3"
+          className="mt-2 pt-5 border-t border-[#E8D7A8]/14 space-y-3"
           data-testid="calendar-day-summary"
         >
           <div className="flex flex-wrap items-center justify-between gap-2">
-            <div>
-              <div className="flex items-center gap-2 text-xs font-mono">
-                <span className="text-[#FAF6EF] font-semibold">{selectedDate}</span>
-                <span className="text-[#6E645A]" aria-hidden="true">
-                  ·
-                </span>
-                {selectedDayStat ? (
-                  <>
-                    <span
-                      className={
-                        selectedDayStat.pnl >= 0
-                          ? 'text-emerald-400 font-semibold'
-                          : 'text-rose-400 font-semibold'
-                      }
-                    >
-                      {formatSignedCurrency(selectedDayStat.pnl, currency)}
-                    </span>
-                    <span className="text-[#6E645A]" aria-hidden="true">
-                      ·
-                    </span>
-                    <span className="text-[#B7ADA0]">
-                      {selectedDayStat.wins}W {selectedDayStat.losses}L ({selectedDayStat.tradesCount} total)
-                    </span>
-                  </>
-                ) : (
-                  <span className="text-[#B7ADA0]">No closed trades</span>
-                )}
-              </div>
+            <div className="flex items-center gap-2 text-xs sm:text-sm font-mono font-bold">
+              <span className="text-[#B7FF00] font-extrabold">{selectedDate}</span>
+              <span className="text-[#E8D7A8]/30" aria-hidden="true">
+                ·
+              </span>
+              {selectedDayStat ? (
+                <>
+                  <span
+                    className={
+                      selectedDayStat.pnl >= 0
+                        ? 'text-emerald-400 font-extrabold'
+                        : 'text-rose-400 font-extrabold'
+                    }
+                  >
+                    {formatSignedCurrency(selectedDayStat.pnl, currency)}
+                  </span>
+                  <span className="text-[#E8D7A8]/30" aria-hidden="true">
+                    ·
+                  </span>
+                  <span className="text-[#C9BA9E]">
+                    {selectedDayStat.wins}W {selectedDayStat.losses}L ({selectedDayStat.tradesCount} total)
+                  </span>
+                </>
+              ) : (
+                <span className="text-[#C9BA9E]">No closed trades</span>
+              )}
             </div>
 
             <button
               type="button"
               onClick={() => setSelectedDate(null)}
               aria-label="Close day summary"
-              className="p-1.5 text-[#B7ADA0] hover:text-[#FAF6EF] rounded-xl"
+              className="glass-control p-2 rounded-xl"
             >
-              <X className="w-3.5 h-3.5" />
+              <X className="w-3.5 h-3.5 text-[#B7FF00]" />
             </button>
           </div>
 
           {selectedDayTrades.length === 0 ? (
-            <p className="text-xs text-[#9A8F83]">
+            <p className="text-xs font-semibold text-[#9C8C72]">
               No closed executions recorded on {selectedDate}.
             </p>
           ) : (
-            <div className="divide-y divide-[#FAF6EF]/10 rounded-2xl liquid-glass-inset px-3.5">
+            <div className="divide-y divide-[#E8D7A8]/12 border-t border-[#E8D7A8]/12">
               {selectedDayTrades.map((t) => (
                 <button
                   key={t.id}
                   type="button"
                   onClick={() => onInspectTrade(t)}
-                  className="w-full py-2.5 flex items-center justify-between gap-3 text-left text-xs hover:bg-[#FAF6EF]/[0.04] -mx-3.5 px-3.5 transition-colors first:rounded-t-2xl last:rounded-b-2xl"
+                  className="w-full py-3.5 flex items-center justify-between gap-3 text-left text-xs sm:text-sm hover:bg-[#B7FF00]/[0.05] px-2 -mx-2 rounded-xl transition-colors"
                 >
                   <div className="min-w-0">
-                    <div className="flex items-center gap-2 font-mono">
-                      <span className="text-[#FAF6EF] font-semibold">{t.instrument}</span>
+                    <div className="flex items-center gap-2 font-mono font-bold">
+                      <span className="text-[#FAF6EE] font-extrabold">{t.instrument}</span>
                       <span
                         className={t.direction === 'Long' ? 'text-emerald-400' : 'text-rose-400'}
                       >
                         {t.direction}
                       </span>
-                      <span className="text-[#9A8F83]">{formatTimeUtc(t.entryTime)}</span>
+                      <span className="text-[#9C8C72]">{formatTimeUtc(t.entryTime)}</span>
                     </div>
-                    <div className="text-[11px] text-[#B7ADA0] truncate mt-0.5">
+                    <div className="text-xs font-semibold text-[#C9BA9E] truncate mt-0.5">
                       {t.setupType} · {t.session} · {t.lotSize.toFixed(2)} lots · Grade {t.setupQuality}
                     </div>
                   </div>
 
                   <div className="text-right shrink-0 font-mono tabular-nums">
                     <div
-                      className={`font-semibold ${
+                      className={`font-extrabold ${
                         t.actualPnL >= 0 ? 'text-emerald-400' : 'text-rose-400'
                       }`}
                     >
                       {formatSignedCurrency(t.actualPnL, currency)}
                     </div>
-                    <div className="text-[10px] text-[#9A8F83]">
+                    <div className="text-xs font-semibold text-[#9C8C72]">
                       {t.riskAmount > 0 ? `${(t.actualPnL / t.riskAmount).toFixed(2)}R` : '—'}
                     </div>
                   </div>
