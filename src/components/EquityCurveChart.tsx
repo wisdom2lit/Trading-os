@@ -94,37 +94,41 @@ export function EquityCurveChart({
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="font-display text-lg font-semibold text-white">
+          <h2 className="font-display text-lg font-semibold text-[#FAF6EF]">
             {mode === 'equity' ? 'Account Equity Curve' : 'Drawdown Depth (%)'}
           </h2>
           {activePoint ? (
-            <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs font-mono tabular-nums">
-              <span className="text-slate-300">
+            <div className="mt-1 flex flex-wrap items-center gap-2 text-xs font-mono tabular-nums">
+              <span className="text-[#D5CBC0]">
                 {formatShortDate(activePoint.pt.dateIso)}
               </span>
-              <span aria-hidden="true" className="text-slate-600">
+              <span aria-hidden="true" className="text-[#6E645A]">
                 ·
               </span>
-              <span className="text-white font-semibold">
+              <span className="text-[#FAF6EF] font-semibold">
                 {formatCurrency(activePoint.pt.balance, currency)}
               </span>
               {activePoint.pt.index > 0 && (
                 <>
-                  <span aria-hidden="true" className="text-slate-600">
+                  <span aria-hidden="true" className="text-[#6E645A]">
                     ·
                   </span>
                   <span
                     className={
-                      activePoint.pt.pnl >= 0 ? 'text-emerald-400' : 'text-rose-400'
+                      activePoint.pt.kind === 'deposit' || activePoint.pt.kind === 'withdrawal'
+                        ? 'text-[#3571A5]'
+                        : activePoint.pt.pnl >= 0
+                        ? 'text-emerald-400'
+                        : 'text-rose-400'
                     }
                   >
                     {activePoint.pt.instrument}{' '}
                     {formatSignedCurrency(activePoint.pt.pnl, currency)}
                   </span>
-                  <span aria-hidden="true" className="text-slate-600">
+                  <span aria-hidden="true" className="text-[#6E645A]">
                     ·
                   </span>
-                  <span className="text-slate-400">
+                  <span className="text-[#B7ADA0]">
                     DD{' '}
                     {activePoint.pt.drawdownPct > 0
                       ? `-${activePoint.pt.drawdownPct.toFixed(2)}%`
@@ -134,20 +138,20 @@ export function EquityCurveChart({
               )}
             </div>
           ) : (
-            <p className="text-xs text-slate-400 mt-0.5">
+            <p className="text-xs text-[#B7ADA0] mt-1">
               Hover over data points to inspect equity progression
             </p>
           )}
         </div>
 
-        <div className="inline-flex items-center p-1 rounded-lg bg-[#050505] border border-white/[0.08]">
+        <div className="inline-flex items-center p-1 rounded-xl liquid-glass-inset gap-1">
           <button
             type="button"
             onClick={() => setMode('equity')}
-            className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
+            className={`px-3.5 py-1.5 text-xs font-medium rounded-lg transition-colors ${
               mode === 'equity'
-                ? 'bg-gradient-to-r from-[#8A2BE2]/30 to-[#00BFFF]/30 text-white border border-[#00BFFF]/30'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-[#0E4A38]/70 text-[#FAF6EF] border border-[#258767]/50'
+                : 'text-[#B7ADA0] hover:text-[#FAF6EF] border border-transparent'
             }`}
           >
             Equity
@@ -155,10 +159,10 @@ export function EquityCurveChart({
           <button
             type="button"
             onClick={() => setMode('drawdown')}
-            className={`px-3 py-1 text-xs font-medium rounded-md transition-colors ${
+            className={`px-3.5 py-1.5 text-xs font-medium rounded-lg transition-colors ${
               mode === 'drawdown'
-                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/30'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-rose-500/20 text-rose-300 border border-rose-500/40'
+                : 'text-[#B7ADA0] hover:text-[#FAF6EF] border border-transparent'
             }`}
           >
             Drawdown
@@ -167,11 +171,11 @@ export function EquityCurveChart({
       </div>
 
       {!chartData || points.length <= 1 ? (
-        <div className="h-[240px] flex items-center justify-center rounded-lg border border-dashed border-white/[0.08] text-xs text-slate-400">
-          Record closed trades to generate your live equity curve.
+        <div className="h-[240px] flex items-center justify-center rounded-2xl liquid-glass-inset border border-dashed border-[#FAF6EF]/15 px-6 text-center text-xs text-[#B7ADA0]">
+          Connect an account and record closed trades or capital deposits to generate your live equity curve.
         </div>
       ) : (
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full overflow-hidden rounded-2xl liquid-glass-inset p-3">
           <svg
             viewBox={`0 0 ${width} ${height}`}
             className="w-full h-auto select-none"
@@ -180,18 +184,19 @@ export function EquityCurveChart({
             onMouseLeave={() => setHoveredIdx(null)}
           >
             <defs>
-              <linearGradient id="axiomEquityStroke" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0%" stopColor="#8A2BE2" />
-                <stop offset="100%" stopColor="#00BFFF" />
+              <linearGradient id="axiomEquityStrokeWarm" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stopColor="#17694F" />
+                <stop offset="65%" stopColor="#2FA47C" />
+                <stop offset="100%" stopColor="#34D399" />
               </linearGradient>
-              <linearGradient id="axiomEquityFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#00BFFF" stopOpacity="0.24" />
-                <stop offset="65%" stopColor="#8A2BE2" stopOpacity="0.08" />
-                <stop offset="100%" stopColor="#050505" stopOpacity="0" />
+              <linearGradient id="axiomEquityFillWarm" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#258767" stopOpacity="0.34" />
+                <stop offset="70%" stopColor="#0E4A38" stopOpacity="0.1" />
+                <stop offset="100%" stopColor="#0A0807" stopOpacity="0" />
               </linearGradient>
-              <linearGradient id="axiomDdFill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#F43F5E" stopOpacity="0.25" />
-                <stop offset="100%" stopColor="#050505" stopOpacity="0" />
+              <linearGradient id="axiomDdFillWarm" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#F43F5E" stopOpacity="0.28" />
+                <stop offset="100%" stopColor="#0A0807" stopOpacity="0" />
               </linearGradient>
             </defs>
 
@@ -203,14 +208,14 @@ export function EquityCurveChart({
                   y1={tick.y}
                   x2={width - padRight}
                   y2={tick.y}
-                  stroke="rgba(255,255,255,0.06)"
+                  stroke="rgba(255,248,236,0.08)"
                   strokeWidth="1"
                 />
                 <text
                   x={padLeft - 10}
                   y={tick.y + 4}
                   textAnchor="end"
-                  fill="#64748b"
+                  fill="#9A8F83"
                   fontSize="10"
                   fontFamily="JetBrains Mono, monospace"
                 >
@@ -228,7 +233,7 @@ export function EquityCurveChart({
                 y1={chartData.baselineY}
                 x2={width - padRight}
                 y2={chartData.baselineY}
-                stroke="rgba(255,255,255,0.16)"
+                stroke="rgba(255,248,236,0.22)"
                 strokeDasharray="4 4"
                 strokeWidth="1"
               />
@@ -237,14 +242,14 @@ export function EquityCurveChart({
             {/* Area Fill */}
             <path
               d={chartData.areaPath}
-              fill={mode === 'equity' ? 'url(#axiomEquityFill)' : 'url(#axiomDdFill)'}
+              fill={mode === 'equity' ? 'url(#axiomEquityFillWarm)' : 'url(#axiomDdFillWarm)'}
             />
 
             {/* Main Line */}
             <path
               d={chartData.linePath}
               fill="none"
-              stroke={mode === 'equity' ? 'url(#axiomEquityStroke)' : '#F43F5E'}
+              stroke={mode === 'equity' ? 'url(#axiomEquityStrokeWarm)' : '#F43F5E'}
               strokeWidth="2.5"
               strokeLinejoin="round"
               strokeLinecap="round"
@@ -258,22 +263,22 @@ export function EquityCurveChart({
                   y1={padTop}
                   x2={activePoint.x}
                   y2={padTop + innerH}
-                  stroke="rgba(0,191,255,0.35)"
+                  stroke="rgba(250,246,239,0.34)"
                   strokeDasharray="3 3"
                   strokeWidth="1"
                 />
                 <circle
                   cx={activePoint.x}
                   cy={activePoint.y}
-                  r="6"
-                  fill={mode === 'equity' ? 'rgba(0,191,255,0.22)' : 'rgba(244,63,94,0.25)'}
+                  r="6.5"
+                  fill={mode === 'equity' ? 'rgba(47,164,124,0.26)' : 'rgba(244,63,94,0.26)'}
                 />
                 <circle
                   cx={activePoint.x}
                   cy={activePoint.y}
-                  r="3.2"
-                  fill={mode === 'equity' ? '#00BFFF' : '#F43F5E'}
-                  stroke="#050505"
+                  r="3.4"
+                  fill={mode === 'equity' ? '#34D399' : '#F43F5E'}
+                  stroke="#0A0807"
                   strokeWidth="1.5"
                 />
               </g>
@@ -289,7 +294,7 @@ export function EquityCurveChart({
               if (!showLabel) return null;
               return (
                 <text
-                  key={c.pt.tradeId}
+                  key={`${c.pt.tradeId}-${idx}`}
                   x={c.x}
                   y={height - 10}
                   textAnchor={
@@ -299,7 +304,7 @@ export function EquityCurveChart({
                       ? 'end'
                       : 'middle'
                   }
-                  fill="#64748b"
+                  fill="#9A8F83"
                   fontSize="10"
                   fontFamily="JetBrains Mono, monospace"
                 >
@@ -316,7 +321,7 @@ export function EquityCurveChart({
                   : innerW;
               return (
                 <rect
-                  key={`hit-${c.pt.tradeId}`}
+                  key={`hit-${c.pt.tradeId}-${idx}`}
                   x={c.x - sliceW / 2}
                   y={padTop}
                   width={Math.max(18, sliceW)}

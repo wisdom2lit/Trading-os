@@ -4,27 +4,43 @@
 
 @layer base {
   :root {
-    --font-display: "Outfit", system-ui, sans-serif;
+    --font-display: "Manrope", system-ui, sans-serif;
     --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
     --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 
-    --bg-void: #050505;
-    --bg-panel: rgba(11, 16, 32, 0.72);
-    --bg-panel-solid: #0B1020;
-    --border-hairline: rgba(255, 255, 255, 0.08);
-    --border-highlight: rgba(0, 191, 255, 0.35);
-    --accent-purple: #8A2BE2;
-    --accent-cyan: #00BFFF;
+    --bg-espresso: #0a0807;
+    --bg-charcoal: #15110e;
+    --bg-umber: #1e1814;
+
+    --ivory-text: #f5efe6;
+    --ivory-muted: #b7ada0;
+    --ivory-dim: #82786d;
+
+    --accent-forest: #0e4a38;
+    --accent-emerald: #17694f;
+    --accent-emerald-bright: #258767;
+    --accent-sapphire: #1c4c76;
+    --accent-sapphire-light: #3571a5;
+
+    --radius-shell: 26px;
+    --radius-panel: 20px;
+    --radius-control: 13px;
   }
 
   html {
+    color-scheme: dark;
     font-family: var(--font-sans);
-    background-color: var(--bg-void);
-    color: #e2e8f0;
+    background-color: var(--bg-espresso);
+    color: var(--ivory-text);
+    letter-spacing: 0.004em;
   }
 
-  h1, h2, h3, .font-display {
+  h1,
+  h2,
+  h3,
+  .font-display {
     font-family: var(--font-display);
+    letter-spacing: -0.02em;
   }
 
   .font-mono,
@@ -37,54 +53,222 @@
   }
 }
 
-/* Liquid-glass institutional panel */
-.glass-panel {
+/* ==========================================================================
+   Luminous Milky-Ivory Liquid Glass Hierarchy
+   ========================================================================== */
+
+.liquid-glass-subtle {
+  position: relative;
+  background:
+    linear-gradient(
+      142deg,
+      rgba(255, 250, 241, 0.14) 0%,
+      rgba(241, 232, 219, 0.07) 52%,
+      rgba(255, 248, 236, 0.105) 100%
+    );
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(255, 249, 238, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 245, 0.36),
+    inset 0 -1px 0 rgba(255, 246, 232, 0.08),
+    0 18px 46px -22px rgba(0, 0, 0, 0.92),
+    0 0 32px -12px rgba(255, 247, 232, 0.15);
+}
+
+.liquid-glass {
+  position: relative;
+  background:
+    linear-gradient(
+      132deg,
+      rgba(255, 252, 246, 0.26) 0%,
+      rgba(248, 240, 228, 0.13) 34%,
+      rgba(232, 222, 208, 0.095) 68%,
+      rgba(255, 249, 239, 0.18) 100%
+    );
+  backdrop-filter: blur(30px) saturate(160%);
+  -webkit-backdrop-filter: blur(30px) saturate(160%);
+  border: 1px solid rgba(255, 250, 240, 0.31);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 253, 248, 0.5),
+    inset 1px 0 0 rgba(255, 250, 242, 0.2),
+    inset 0 -1px 0 rgba(255, 245, 230, 0.13),
+    0 26px 60px -20px rgba(0, 0, 0, 0.92),
+    0 0 40px -12px rgba(255, 248, 235, 0.2);
+}
+
+.liquid-glass-elevated {
+  position: relative;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(62, 54, 47, 0.9) 0%,
+      rgba(29, 24, 20, 0.94) 56%,
+      rgba(46, 39, 33, 0.92) 100%
+    );
+  backdrop-filter: blur(34px) saturate(165%);
+  -webkit-backdrop-filter: blur(34px) saturate(165%);
+  border: 1px solid rgba(255, 250, 242, 0.32);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 253, 247, 0.48),
+    inset 0 -1px 0 rgba(255, 246, 232, 0.12),
+    0 34px 80px -18px rgba(0, 0, 0, 0.95),
+    0 0 46px -14px rgba(255, 247, 232, 0.2);
+}
+
+.liquid-glass-nav {
+  background:
+    linear-gradient(
+      165deg,
+      rgba(255, 250, 242, 0.19) 0%,
+      rgba(24, 19, 16, 0.74) 48%,
+      rgba(255, 248, 238, 0.14) 100%
+    );
+  backdrop-filter: blur(28px) saturate(160%);
+  -webkit-backdrop-filter: blur(28px) saturate(160%);
+  border: 1px solid rgba(255, 249, 239, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 246, 0.42),
+    inset 0 -1px 0 rgba(255, 246, 232, 0.1),
+    0 20px 48px -18px rgba(0, 0, 0, 0.92),
+    0 0 30px -12px rgba(255, 247, 232, 0.17);
+}
+
+.liquid-glass-inset {
   background: linear-gradient(
     180deg,
-    rgba(13, 19, 38, 0.78) 0%,
-    rgba(8, 12, 24, 0.72) 100%
+    rgba(13, 10, 8, 0.62) 0%,
+    rgba(19, 15, 12, 0.56) 100%
   );
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 248, 238, 0.13);
+  box-shadow:
+    inset 0 2px 8px rgba(0, 0, 0, 0.42),
+    inset 0 1px 0 rgba(255, 250, 242, 0.06);
 }
 
-.glass-panel-subtle {
-  background: rgba(11, 16, 32, 0.45);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .liquid-glass-subtle {
+    background: rgba(31, 25, 21, 0.92);
+  }
+  .liquid-glass {
+    background: rgba(38, 31, 26, 0.95);
+  }
+  .liquid-glass-elevated,
+  .liquid-glass-nav {
+    background: rgba(29, 24, 20, 0.97);
+  }
 }
 
-.accent-glow-cyan {
-  box-shadow: 0 0 24px -6px rgba(0, 191, 255, 0.32);
+/* Subtle warm architectural coordinate grid */
+.architectural-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 247, 234, 0.026) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 247, 234, 0.026) 1px, transparent 1px);
+  background-size: 72px 72px;
 }
 
-.accent-glow-purple {
-  box-shadow: 0 0 24px -6px rgba(138, 43, 226, 0.34);
+/* Primary Deep Forest Emerald CTA */
+.btn-emerald-glass {
+  background: linear-gradient(
+    145deg,
+    rgba(28, 114, 86, 0.94) 0%,
+    rgba(15, 76, 56, 0.96) 100%
+  );
+  border: 1px solid rgba(167, 243, 208, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 245, 0.3),
+    0 12px 28px -12px rgba(14, 74, 56, 0.78);
+  transition: transform 160ms cubic-bezier(0.16, 1, 0.3, 1), filter 160ms ease, box-shadow 160ms ease;
 }
 
-/* Custom sleek dark scrollbar */
+.btn-emerald-glass:hover:not(:disabled) {
+  filter: brightness(1.08);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 245, 0.38),
+    0 16px 34px -10px rgba(23, 105, 79, 0.85);
+}
+
+.btn-emerald-glass:active:not(:disabled) {
+  transform: translateY(0.5px);
+}
+
+/* Frosted Ivory Glass Secondary Action */
+.btn-ivory-glass {
+  background: linear-gradient(
+    155deg,
+    rgba(255, 250, 242, 0.16) 0%,
+    rgba(244, 236, 224, 0.08) 100%
+  );
+  border: 1px solid rgba(255, 249, 239, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 252, 246, 0.32),
+    0 8px 20px -12px rgba(0, 0, 0, 0.75);
+  transition: background-color 160ms ease, border-color 160ms ease, filter 160ms ease;
+}
+
+.btn-ivory-glass:hover:not(:disabled) {
+  border-color: rgba(255, 250, 242, 0.38);
+  filter: brightness(1.1);
+}
+
+/* Unified rounded espresso-glass input & select styling */
+.tos-input {
+  background-color: rgba(15, 11, 9, 0.72);
+  border: 1px solid rgba(255, 248, 238, 0.18);
+  border-radius: 13px;
+  color: #f5efe6;
+  box-shadow:
+    inset 0 1px 3px rgba(0, 0, 0, 0.38),
+    inset 0 -1px 0 rgba(255, 250, 242, 0.05);
+  transition: border-color 160ms cubic-bezier(0.16, 1, 0.3, 1), background-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.tos-input::placeholder {
+  color: #7c7166;
+}
+
+.tos-input:hover:not(:disabled) {
+  border-color: rgba(255, 249, 239, 0.3);
+}
+
+.tos-input:focus {
+  outline: none;
+  border-color: rgba(46, 153, 116, 0.8);
+  background-color: rgba(21, 17, 14, 0.88);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.35),
+    0 0 0 3px rgba(23, 105, 79, 0.22);
+}
+
+select.tos-input option {
+  background-color: #16120f;
+  color: #f5efe6;
+}
+
+/* Custom sleek dark espresso scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #050505;
+  background: #0a0807;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.22);
-  border-radius: 3px;
+  background: rgba(245, 239, 230, 0.2);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(0, 191, 255, 0.4);
+  background: rgba(37, 135, 103, 0.55);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;

@@ -154,6 +154,17 @@ export interface StrategyConfig {
   minConfluencesRequired: number;
 }
 
+export type AccountTransactionType = 'Deposit' | 'Withdrawal' | 'Fee' | 'Adjustment';
+
+export interface AccountTransaction {
+  id: string;
+  accountId: string;
+  type: AccountTransactionType;
+  amount: number;
+  timestamp: string;
+  note: string;
+}
+
 export interface TosAppState {
   version: number;
   selectedInstrument: string;
@@ -161,8 +172,9 @@ export interface TosAppState {
   accounts: TradingAccount[];
   instruments: InstrumentSpec[];
   trades: Trade[];
+  transactions: AccountTransaction[];
   checklistItems: ChecklistItem[];
-  checklistRecords: Record<string, DailyChecklistRecord>; // Keyed by YYYY-MM-DD
+  checklistRecords: Record<string, DailyChecklistRecord>;
   strategies: StrategyConfig[];
   activeStrategyId: string;
   watchlist: string[];

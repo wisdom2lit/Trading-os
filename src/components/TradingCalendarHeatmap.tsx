@@ -7,22 +7,22 @@ import { formatSignedCurrency, formatTimeUtc } from './Formatters';
 interface TradingCalendarHeatmapProps {
   dailyCalendar: Record<string, DailyCalendarStats>;
   trades: Trade[];
-  account: TradingAccount;
+  account: TradingAccount | null;
   onInspectTrade: (trade: Trade) => void;
 }
 
 const PROFIT_TIER_CLASSES: Record<number, string> = {
-  1: 'bg-emerald-500/12 border-emerald-500/25 text-emerald-200',
-  2: 'bg-emerald-500/22 border-emerald-500/40 text-emerald-200',
-  3: 'bg-emerald-500/34 border-emerald-400/55 text-emerald-100',
-  4: 'bg-emerald-500/48 border-emerald-400/75 text-white',
+  1: 'bg-emerald-500/14 border-emerald-500/30 text-emerald-200',
+  2: 'bg-emerald-500/24 border-emerald-500/45 text-emerald-100',
+  3: 'bg-emerald-500/38 border-emerald-400/60 text-white',
+  4: 'bg-emerald-500/52 border-emerald-400/80 text-white',
 };
 
 const LOSS_TIER_CLASSES: Record<number, string> = {
-  1: 'bg-rose-500/12 border-rose-500/25 text-rose-200',
-  2: 'bg-rose-500/22 border-rose-500/40 text-rose-200',
-  3: 'bg-rose-500/34 border-rose-400/55 text-rose-100',
-  4: 'bg-rose-500/48 border-rose-400/75 text-white',
+  1: 'bg-rose-500/14 border-rose-500/30 text-rose-200',
+  2: 'bg-rose-500/24 border-rose-500/45 text-rose-100',
+  3: 'bg-rose-500/38 border-rose-400/60 text-white',
+  4: 'bg-rose-500/52 border-rose-400/80 text-white',
 };
 
 export function TradingCalendarHeatmap({
@@ -31,6 +31,8 @@ export function TradingCalendarHeatmap({
   account,
   onInspectTrade,
 }: TradingCalendarHeatmapProps) {
+  const currency = account?.currency || 'USD';
+
   const defaultMonth = useMemo(() => {
     const keys = Object.keys(dailyCalendar).sort();
     const lastKey = keys[keys.length - 1];
@@ -49,7 +51,10 @@ export function TradingCalendarHeatmap({
   const { maxProfit, maxLossAbs, monthNetPnL, greenDays, redDays, activeDays } = useMemo(() => {
     const allStats = Object.values(dailyCalendar);
     const maxP = allStats.reduce((m, s) => (s.pnl > m ? s.pnl : m), 0);
-    const maxL = allStats.reduce((m, s) => (s.pnl < 0 && Math.abs(s.pnl) > m ? Math.abs(s.pnl) : m), 0);
+    const maxL = allStats.reduce(
+      (m, s) => (s.pnl < 0 && Math.abs(s.pnl) > m ? Math.abs(s.pnl) : m),
+      0
+    );
 
     const monthStats = allStats.filter((s) => s.date.startsWith(monthPrefix));
     const net = monthStats.reduce((acc, s) => acc + s.pnl, 0);
@@ -68,7 +73,7 @@ export function TradingCalendarHeatmap({
 
   const calendarCells = useMemo(() => {
     const firstDay = new Date(Date.UTC(calMonth.year, calMonth.month, 1));
-    const startWeekday = (firstDay.getUTCDay() + 6) % 7; // Monday = 0
+    const startWeekday = (firstDay.getUTCDay() + 6) % 7;
     const daysInMonth = new Date(Date.UTC(calMonth.year, calMonth.month + 1, 0)).getUTCDate();
     const cells: Array<{ day: number | null; dateKey: string | null }> = [];
     for (let i = 0; i < startWeekday; i += 1) {
@@ -97,7 +102,7 @@ export function TradingCalendarHeatmap({
   const selectedDayStat = selectedDate ? dailyCalendar[selectedDate] || null : null;
 
   const selectedDayTrades = useMemo(() => {
-    if (!selectedDate) return [];
+    if (!selectedDate || !account) return [];
     return trades
       .filter(
         (t) =>
@@ -106,15 +111,15 @@ export function TradingCalendarHeatmap({
           (t.exitTime || t.entryTime).slice(0, 10) === selectedDate
       )
       .sort((a, b) => new Date(a.entryTime).getTime() - new Date(b.entryTime).getTime());
-  }, [selectedDate, trades, account.id]);
+  }, [selectedDate, trades, account]);
 
   return (
-    <section className="lg:col-span-6 glass-panel rounded-xl p-6 space-y-4">
+    <section className="lg:col-span-6 liquid-glass rounded-[28px] p-6 sm:p-7 space-y-5">
       {/* Header & Month Navigation */}
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-white/[0.08]">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 border-b border-[#FAF6EF]/15">
         <div>
-          <h2 className="font-display text-lg font-semibold text-white">Trading Calendar</h2>
-          <p className="text-xs text-slate-400 mt-0.5">
+          <h2 className="font-display text-lg font-semibold text-[#FAF6EF]">Trading Calendar</h2>
+          <p className="text-xs text-[#B7ADA0] mt-0.5">
             Daily P&amp;L heatmap — click any day to review trade breakdown
           </p>
         </div>
@@ -124,18 +129,18 @@ export function TradingCalendarHeatmap({
             type="button"
             onClick={() => shiftMonth(-1)}
             aria-label="Previous month"
-            className="p-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.1] text-slate-300"
+            className="p-2 rounded-xl bg-[#0A0807]/50 hover:bg-white/[0.1] border border-[#FAF6EF]/15 text-[#F5EFE6] transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
-          <span className="text-xs font-mono text-white min-w-[112px] text-center">
+          <span className="text-xs font-mono text-[#FAF6EF] min-w-[116px] text-center">
             {monthTitle}
           </span>
           <button
             type="button"
             onClick={() => shiftMonth(1)}
             aria-label="Next month"
-            className="p-1.5 rounded-md bg-white/[0.04] hover:bg-white/[0.1] text-slate-300"
+            className="p-2 rounded-xl bg-[#0A0807]/50 hover:bg-white/[0.1] border border-[#FAF6EF]/15 text-[#F5EFE6] transition-colors"
           >
             <ChevronRight className="w-4 h-4" />
           </button>
@@ -151,34 +156,37 @@ export function TradingCalendarHeatmap({
                 ? 'text-emerald-400'
                 : monthNetPnL < 0
                 ? 'text-rose-400'
-                : 'text-slate-300'
+                : 'text-[#F5EFE6]'
             }`}
           >
-            {formatSignedCurrency(monthNetPnL, account.currency)}
+            {formatSignedCurrency(monthNetPnL, currency)}
           </span>
-          <span className="text-slate-600" aria-hidden="true">
+          <span className="text-[#6E645A]" aria-hidden="true">
             ·
           </span>
-          <span className="text-slate-400">
+          <span className="text-[#B7ADA0]">
             <span className="text-emerald-400">{greenDays}G</span> /{' '}
             <span className="text-rose-400">{redDays}L</span> ({activeDays}d)
           </span>
         </div>
 
         {/* Intensity Legend */}
-        <div className="flex items-center gap-1.5 text-[11px] text-slate-400" aria-label="Heatmap intensity legend">
+        <div
+          className="flex items-center gap-1.5 text-[11px] text-[#B7ADA0]"
+          aria-label="Heatmap intensity legend"
+        >
           <span>Loss</span>
-          <span className="w-3 h-3 rounded-sm bg-rose-500/48 border border-rose-400/75" />
-          <span className="w-3 h-3 rounded-sm bg-rose-500/22 border border-rose-500/40" />
-          <span className="w-3 h-3 rounded-sm bg-white/[0.03] border border-white/[0.08]" />
-          <span className="w-3 h-3 rounded-sm bg-emerald-500/22 border border-emerald-500/40" />
-          <span className="w-3 h-3 rounded-sm bg-emerald-500/48 border border-emerald-400/75" />
+          <span className="w-3 h-3 rounded bg-rose-500/52 border border-rose-400/80" />
+          <span className="w-3 h-3 rounded bg-rose-500/24 border border-rose-500/45" />
+          <span className="w-3 h-3 rounded bg-[#0A0807]/55 border border-[#FAF6EF]/15" />
+          <span className="w-3 h-3 rounded bg-emerald-500/24 border border-emerald-500/45" />
+          <span className="w-3 h-3 rounded bg-emerald-500/52 border border-emerald-400/80" />
           <span>Profit</span>
         </div>
       </div>
 
       {/* Weekday Headers */}
-      <div className="grid grid-cols-7 gap-1.5 text-center text-[11px] font-mono text-slate-500">
+      <div className="grid grid-cols-7 gap-2 text-center text-[11px] font-mono text-[#9A8F83]">
         {['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((d) => (
           <div key={d} className="py-1">
             {d}
@@ -187,10 +195,14 @@ export function TradingCalendarHeatmap({
       </div>
 
       {/* Heatmap Grid */}
-      <div className="grid grid-cols-7 gap-1.5" role="grid" aria-label={`Trading calendar for ${monthTitle}`}>
+      <div
+        className="grid grid-cols-7 gap-2"
+        role="grid"
+        aria-label={`Trading calendar for ${monthTitle}`}
+      >
         {calendarCells.map((cell, idx) => {
           if (!cell.day || !cell.dateKey) {
-            return <div key={`empty-${idx}`} className="h-14 rounded-lg bg-white/[0.01]" />;
+            return <div key={`empty-${idx}`} className="h-14 rounded-xl bg-[#0A0807]/25" />;
           }
 
           const stat = dailyCalendar[cell.dateKey];
@@ -205,11 +217,11 @@ export function TradingCalendarHeatmap({
               : intensity.direction === 'loss'
               ? LOSS_TIER_CLASSES[intensity.tier]
               : stat
-              ? 'bg-white/[0.06] border-white/[0.15] text-slate-200'
-              : 'bg-white/[0.02] border-white/[0.05] text-slate-500';
+              ? 'bg-[#FAF6EF]/10 border-[#FAF6EF]/25 text-[#FAF6EF]'
+              : 'bg-[#0A0807]/45 border-[#FAF6EF]/10 text-[#9A8F83]';
 
           const accessibleLabel = stat
-            ? `${cell.dateKey}: ${formatSignedCurrency(stat.pnl, account.currency)}, ${stat.tradesCount} trades`
+            ? `${cell.dateKey}: ${formatSignedCurrency(stat.pnl, currency)}, ${stat.tradesCount} trades`
             : `${cell.dateKey}: No trades`;
 
           return (
@@ -220,8 +232,8 @@ export function TradingCalendarHeatmap({
               aria-label={accessibleLabel}
               aria-pressed={isSelected}
               data-heatmap-tier={`${intensity.direction}-${intensity.tier}`}
-              className={`h-14 p-1.5 rounded-lg border text-left flex flex-col justify-between transition-all hover:border-[#00BFFF]/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#00BFFF] ${cellTone} ${
-                isSelected ? 'ring-2 ring-[#00BFFF] ring-offset-1 ring-offset-[#050505]' : ''
+              className={`h-14 p-1.5 rounded-xl border text-left flex flex-col justify-between transition-all hover:border-[#3FA17F]/75 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#258767] ${cellTone} ${
+                isSelected ? 'ring-2 ring-[#FAF6EF] ring-offset-2 ring-offset-[#16120F]' : ''
               }`}
             >
               <span className="text-[10px] font-mono opacity-85">{cell.day}</span>
@@ -244,34 +256,36 @@ export function TradingCalendarHeatmap({
       {/* Selected Day Drill-Down Summary */}
       {selectedDate && (
         <div
-          className="mt-2 pt-4 border-t border-white/[0.08] space-y-3"
+          className="mt-2 pt-4 border-t border-[#FAF6EF]/15 space-y-3"
           data-testid="calendar-day-summary"
         >
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div>
               <div className="flex items-center gap-2 text-xs font-mono">
-                <span className="text-white font-semibold">{selectedDate}</span>
-                <span className="text-slate-600" aria-hidden="true">
+                <span className="text-[#FAF6EF] font-semibold">{selectedDate}</span>
+                <span className="text-[#6E645A]" aria-hidden="true">
                   ·
                 </span>
                 {selectedDayStat ? (
                   <>
                     <span
                       className={
-                        selectedDayStat.pnl >= 0 ? 'text-emerald-400 font-semibold' : 'text-rose-400 font-semibold'
+                        selectedDayStat.pnl >= 0
+                          ? 'text-emerald-400 font-semibold'
+                          : 'text-rose-400 font-semibold'
                       }
                     >
-                      {formatSignedCurrency(selectedDayStat.pnl, account.currency)}
+                      {formatSignedCurrency(selectedDayStat.pnl, currency)}
                     </span>
-                    <span className="text-slate-600" aria-hidden="true">
+                    <span className="text-[#6E645A]" aria-hidden="true">
                       ·
                     </span>
-                    <span className="text-slate-400">
+                    <span className="text-[#B7ADA0]">
                       {selectedDayStat.wins}W {selectedDayStat.losses}L ({selectedDayStat.tradesCount} total)
                     </span>
                   </>
                 ) : (
-                  <span className="text-slate-400">No closed trades</span>
+                  <span className="text-[#B7ADA0]">No closed trades</span>
                 )}
               </div>
             </div>
@@ -280,38 +294,36 @@ export function TradingCalendarHeatmap({
               type="button"
               onClick={() => setSelectedDate(null)}
               aria-label="Close day summary"
-              className="p-1 text-slate-400 hover:text-white rounded"
+              className="p-1.5 text-[#B7ADA0] hover:text-[#FAF6EF] rounded-xl"
             >
               <X className="w-3.5 h-3.5" />
             </button>
           </div>
 
           {selectedDayTrades.length === 0 ? (
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#9A8F83]">
               No closed executions recorded on {selectedDate}.
             </p>
           ) : (
-            <div className="divide-y divide-white/[0.06] rounded-lg bg-[#050505]/70 border border-white/[0.06] px-3">
+            <div className="divide-y divide-[#FAF6EF]/10 rounded-2xl liquid-glass-inset px-3.5">
               {selectedDayTrades.map((t) => (
                 <button
                   key={t.id}
                   type="button"
                   onClick={() => onInspectTrade(t)}
-                  className="w-full py-2.5 flex items-center justify-between gap-3 text-left text-xs hover:bg-white/[0.03] -mx-3 px-3 transition-colors"
+                  className="w-full py-2.5 flex items-center justify-between gap-3 text-left text-xs hover:bg-[#FAF6EF]/[0.04] -mx-3.5 px-3.5 transition-colors first:rounded-t-2xl last:rounded-b-2xl"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 font-mono">
-                      <span className="text-white font-semibold">{t.instrument}</span>
+                      <span className="text-[#FAF6EF] font-semibold">{t.instrument}</span>
                       <span
-                        className={
-                          t.direction === 'Long' ? 'text-emerald-400' : 'text-rose-400'
-                        }
+                        className={t.direction === 'Long' ? 'text-emerald-400' : 'text-rose-400'}
                       >
                         {t.direction}
                       </span>
-                      <span className="text-slate-500">{formatTimeUtc(t.entryTime)}</span>
+                      <span className="text-[#9A8F83]">{formatTimeUtc(t.entryTime)}</span>
                     </div>
-                    <div className="text-[11px] text-slate-400 truncate mt-0.5">
+                    <div className="text-[11px] text-[#B7ADA0] truncate mt-0.5">
                       {t.setupType} · {t.session} · {t.lotSize.toFixed(2)} lots · Grade {t.setupQuality}
                     </div>
                   </div>
@@ -322,9 +334,9 @@ export function TradingCalendarHeatmap({
                         t.actualPnL >= 0 ? 'text-emerald-400' : 'text-rose-400'
                       }`}
                     >
-                      {formatSignedCurrency(t.actualPnL, account.currency)}
+                      {formatSignedCurrency(t.actualPnL, currency)}
                     </div>
-                    <div className="text-[10px] text-slate-500">
+                    <div className="text-[10px] text-[#9A8F83]">
                       {t.riskAmount > 0 ? `${(t.actualPnL / t.riskAmount).toFixed(2)}R` : '—'}
                     </div>
                   </div>

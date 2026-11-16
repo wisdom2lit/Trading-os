@@ -4,9 +4,9 @@ import { calculatePositionSize } from './risk';
 import { computeAnalytics, getHeatmapTier } from './analytics';
 import { parseMt5HistoryCsv } from './mt5Parser';
 import { evaluateOrbWindows, getMarketSessionSnapshot } from './sessions';
-import { DEFAULT_ACCOUNTS, DEFAULT_INSTRUMENTS, DEFAULT_STRATEGIES, createInitialSeedState } from './seed';
+import { DEFAULT_ACCOUNTS, DEFAULT_INSTRUMENTS, DEFAULT_STRATEGIES, createEmptyInitialState, createInitialSeedState } from './seed';
 import { exportBackupJson, parseBackupJson } from './storage';
-import { Trade } from './types';
+import { AccountTransaction, Trade } from './types';
 
 test('Position size calculator computes accurate XAUUSD lot size and RR', () => {
   const xau = DEFAULT_INSTRUMENTS.find((i) => i.symbol === 'XAUUSD')!;
@@ -61,8 +61,23 @@ test('Position size calculator computes accurate EURUSD lot size and rejects inv
   assert.ok(invalidLong.errors.length > 0);
 });
 
-test('Analytics engine calculates net P&L, drawdown, streaks, funded progress, and psychology accurately', () => {
-  const account = DEFAULT_ACCOUNTS[0]; // 100k FTMO, 10% target ($10,000), 5% daily ($5,000), 10% max dd ($10,000), 4 prof days >= $500
+test('Empty initial state has zero fabricated balances, accounts, trades, and transactions', () => {
+  const empty = createEmptyInitialState();
+  assert.equal(empty.accounts.length, 0);
+  assert.equal(empty.trades.length, 0);
+  assert.equal(empty.transactions.length, 0);
+
+  const zeroStats = computeAnalytics(empty.trades, null, empty.transactions);
+  assert.equal(zeroStats.hasAccount, false);
+  assert.equal(zeroStats.currentBalance, 0);
+  assert.equal(zeroStats.currentEquity, 0);
+  assert.equal(zeroStats.netPnL, 0);
+  assert.equal(zeroStats.netReturnPct, 0);
+  assert.equal(zeroStats.equityCurve.length, 0);
+});
+
+test('Analytics engine calculates net P&L, deposits/withdrawals, drawdown, streaks, and funded progress accurately', () => {
+  const account = DEFAULT_ACCOUNTS[0];
   const refDate = new Date('2026-11-15T14:00:00.000Z');
 
   const trades: Trade[] = [
@@ -138,13 +153,36 @@ test('Analytics engine calculates net P&L, drawdown, streaks, funded progress, a
     },
   ];
 
-  const stats = computeAnalytics(trades, account, refDate);
+  const transactions: AccountTransaction[] = [
+    {
+      id: 'tx-1',
+      accountId: account.id,
+      type: 'Deposit',
+      amount: 5000,
+      timestamp: '2026-11-11T10:00:00.000Z',
+      note: 'Capital top-up',
+    },
+    {
+      id: 'tx-2',
+      accountId: account.id,
+      type: 'Withdrawal',
+      amount: 1000,
+      timestamp: '2026-11-12T10:00:00.000Z',
+      note: 'Payout withdrawal',
+    },
+  ];
+
+  const stats = computeAnalytics(trades, account, transactions, refDate);
+  assert.equal(stats.hasAccount, true);
   assert.equal(stats.closedTrades, 2);
   assert.equal(stats.wins, 1);
   assert.equal(stats.losses, 1);
   assert.equal(stats.winRate, 50);
+  assert.equal(stats.totalDeposits, 5000);
+  assert.equal(stats.totalWithdrawals, 1000);
+  assert.equal(stats.netCashFlow, 4000);
   assert.equal(stats.netPnL, 1000);
-  assert.equal(stats.currentBalance, 101000);
+  assert.equal(stats.currentBalance, 105000);
   assert.equal(stats.profitFactor, 3);
   assert.equal(stats.dailyPnL, -500);
   assert.equal(stats.monthlyPnL, 1000);
@@ -152,8 +190,8 @@ test('Analytics engine calculates net P&L, drawdown, streaks, funded progress, a
   assert.equal(stats.averageHoldMinutes, 45);
   assert.equal(stats.psychology.planAdherenceRate, 50);
   assert.equal(stats.psychology.revengeTradesCount, 1);
-  assert.equal(stats.fundedProgress.profitTargetProgressPct, 10); // $1000 / $10000
-  assert.equal(stats.fundedProgress.dailyLossUsedPct, 10); // $500 / $5000
+  assert.equal(stats.fundedProgress.profitTargetProgressPct, 10);
+  assert.equal(stats.fundedProgress.dailyLossUsedPct, 10);
   assert.equal(stats.fundedProgress.profitableDaysAchieved, 1);
 });
 

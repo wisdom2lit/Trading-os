@@ -645,18 +645,36 @@ export function createDefaultChecklistRecord(dateKey: string): DailyChecklistRec
   };
 }
 
+export function createEmptyInitialState(): TosAppState {
+  return {
+    version: 2,
+    selectedInstrument: 'XAUUSD',
+    activeAccountId: '',
+    accounts: [],
+    instruments: DEFAULT_INSTRUMENTS,
+    trades: [],
+    transactions: [],
+    checklistItems: DEFAULT_CHECKLIST_ITEMS,
+    checklistRecords: {},
+    strategies: DEFAULT_STRATEGIES,
+    activeStrategyId: 'strat-orb-ict',
+    watchlist: ['XAUUSD', 'NAS100', 'EURUSD', 'GBPUSD'],
+  };
+}
+
 export function createInitialSeedState(todayKey: string = new Date().toISOString().slice(0, 10)): TosAppState {
   const allItemIds = DEFAULT_CHECKLIST_ITEMS.map((i) => i.id);
   const partialIds = ['chk-1', 'chk-2', 'chk-3', 'chk-5', 'chk-6'];
   const lowIds = ['chk-1', 'chk-4'];
 
   return {
-    version: 1,
+    version: 2,
     selectedInstrument: 'XAUUSD',
     activeAccountId: 'acc-funded-100k',
     accounts: DEFAULT_ACCOUNTS,
     instruments: DEFAULT_INSTRUMENTS,
     trades: DEFAULT_TRADES,
+    transactions: [],
     checklistItems: DEFAULT_CHECKLIST_ITEMS,
     checklistRecords: {
       '2026-11-04': {
