@@ -203,17 +203,17 @@ export function ChecklistView({
               type="button"
               onClick={() => setManageMode((v) => !v)}
               className={`inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold rounded-xl whitespace-nowrap shrink-0 ${
-                manageMode ? 'glass-control-active text-[#F4FFCC]' : 'glass-control text-[#E8D7A8]'
+                manageMode ? 'glass-control-active text-[#FAF6EE]' : 'glass-control text-[#E8D7A8]'
               }`}
             >
-              <Edit3 className="w-3.5 h-3.5 text-[#B7FF00]" />
+              <Edit3 className="w-3.5 h-3.5 text-[#FFD36A]" />
               <span>{manageMode ? 'Done Editing' : 'Customize'}</span>
             </button>
 
             <button
               type="button"
               onClick={openCreateForm}
-              className="glass-lime-cta inline-flex items-center gap-1.5 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl whitespace-nowrap shrink-0"
+              className="glass-gold-cta inline-flex items-center gap-1.5 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl whitespace-nowrap shrink-0"
             >
               <Plus className="w-4 h-4 stroke-[3]" />
               <span>Add Item</span>
@@ -224,14 +224,14 @@ export function ChecklistView({
               onClick={handleLockToggle}
               className={`inline-flex items-center gap-1.5 px-4 py-2.5 text-xs font-bold rounded-xl whitespace-nowrap shrink-0 transition-all ${
                 isLocked
-                  ? 'glass-control-active text-[#B7FF00]'
+                  ? 'glass-control-active text-[#FFD36A]'
                   : 'glass-control text-[#E8D7A8]'
               }`}
             >
               {isLocked ? (
-                <Unlock className="w-3.5 h-3.5 text-[#B7FF00]" />
+                <Unlock className="w-3.5 h-3.5 text-[#FFD36A]" />
               ) : (
-                <Lock className="w-3.5 h-3.5 text-[#B7FF00]" />
+                <Lock className="w-3.5 h-3.5 text-[#E8D7A8]" />
               )}
               <span>{isLocked ? 'Unlock' : 'Lock Record'}</span>
             </button>
@@ -267,7 +267,7 @@ export function ChecklistView({
                 const isSelected = day.date === selectedDate;
                 const tone =
                   day.pct === 100
-                    ? 'bg-[#B7FF00]/22 border-[#B7FF00]/70 text-[#F4FFCC] font-extrabold'
+                    ? 'bg-emerald-500/20 border-emerald-400/55 text-emerald-200 font-extrabold'
                     : day.pct >= 50
                     ? 'bg-[#FFD36A]/22 border-[#FFD36A]/55 text-[#FAF6EE] font-bold'
                     : day.pct > 0
@@ -282,7 +282,7 @@ export function ChecklistView({
                     aria-label={`Select checklist date ${day.date} (${day.pct}% complete)`}
                     className={`h-9 rounded-xl border transition-all flex items-center justify-center text-xs font-mono tabular-nums ${tone} ${
                       isSelected
-                        ? 'ring-2 ring-[#B7FF00] ring-offset-2 ring-offset-[#050505]'
+                        ? 'ring-2 ring-[#FFD36A] ring-offset-2 ring-offset-[#050505]'
                         : ''
                     }`}
                   >
@@ -311,7 +311,7 @@ export function ChecklistView({
               aria-label="Close checklist item form"
               className="glass-control p-2 rounded-xl"
             >
-              <X className="w-4 h-4 text-[#B7FF00]" />
+              <X className="w-4 h-4 text-[#E8D7A8]" />
             </button>
           </div>
 
@@ -378,7 +378,7 @@ export function ChecklistView({
               </button>
               <button
                 type="submit"
-                className="glass-lime-cta px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
+                className="glass-gold-cta px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
               >
                 {editingItemId ? 'Save Changes' : 'Create Item'}
               </button>
@@ -428,8 +428,8 @@ export function ChecklistView({
                           <span
                             className={`mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-lg transition-all duration-200 ${
                               checked
-                                ? 'bg-[#B7FF00]/22 border border-[#B7FF00] text-[#B7FF00] shadow-[0_0_16px_-2px_rgba(183,255,0,0.65)] scale-105'
-                                : 'glass-well group-hover:border-[#B7FF00]/65'
+                                ? 'bg-[#FFD36A]/20 border border-[#FFD36A] text-[#FFD36A] shadow-[0_0_14px_-2px_rgba(255,211,106,0.45)] scale-105'
+                                : 'glass-well group-hover:border-[#FFD36A]/55'
                             }`}
                           >
                             {checked && <Check className="w-3.5 h-3.5 stroke-[3]" />}
@@ -445,7 +445,7 @@ export function ChecklistView({
                               {item.required && (
                                 <span
                                   className={`ml-2 text-xs font-mono font-bold ${
-                                    checked ? 'text-[#B7FF00]/80' : 'text-[#FFD36A]'
+                                    checked ? 'text-[#FFD36A]/80' : 'text-[#FFD36A]'
                                   }`}
                                 >
                                   Required
@@ -481,7 +481,7 @@ export function ChecklistView({
                               aria-label={`Edit ${item.title}`}
                               className="glass-control p-2 rounded-xl"
                             >
-                              <Edit3 className="w-3.5 h-3.5 text-[#B7FF00]" />
+                              <Edit3 className="w-3.5 h-3.5 text-[#FFD36A]" />
                             </button>
                             {isConfirmingDelete ? (
                               <div className="flex items-center gap-1">
@@ -536,7 +536,7 @@ export function ChecklistView({
                 onClick={() => onSaveRecord({ ...record, completedIds: [] })}
                 className="glass-control inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold"
               >
-                <RotateCcw className="w-3.5 h-3.5 text-[#B7FF00]" />
+                <RotateCcw className="w-3.5 h-3.5 text-[#E8D7A8]" />
                 <span>Reset Checks</span>
               </button>
             )}
@@ -561,7 +561,7 @@ export function ChecklistView({
                           ? 'bg-emerald-500/24 text-emerald-200 border border-emerald-400/65'
                           : bias === 'Bearish'
                           ? 'bg-rose-500/24 text-rose-200 border border-rose-400/65'
-                          : 'glass-control-active text-[#F4FFCC]'
+                          : 'glass-control-active text-[#FAF6EE]'
                         : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                     }`}
                   >
@@ -587,7 +587,7 @@ export function ChecklistView({
                     onClick={() => updateRecordField('newsImpact', lvl)}
                     className={`py-2.5 px-3 text-xs font-bold rounded-xl transition-all ${
                       active
-                        ? 'glass-control-active text-[#F4FFCC]'
+                        ? 'glass-control-active text-[#FAF6EE]'
                         : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                     }`}
                   >
@@ -613,7 +613,7 @@ export function ChecklistView({
                     onClick={() => toggleWatchlistInstrument(sym)}
                     className={`px-3.5 py-2 text-xs font-mono font-bold rounded-xl transition-all ${
                       active
-                        ? 'glass-control-active text-[#B7FF00]'
+                        ? 'glass-control-active text-[#FFD36A]'
                         : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                     }`}
                   >

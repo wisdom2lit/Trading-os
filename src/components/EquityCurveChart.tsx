@@ -150,7 +150,7 @@ export function EquityCurveChart({
             onClick={() => setMode('equity')}
             className={`px-4 py-2 text-xs font-bold rounded-xl transition-all ${
               mode === 'equity'
-                ? 'glass-control-active text-[#F4FFCC]'
+                ? 'glass-control-active text-[#FFD36A]'
                 : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
             }`}
           >

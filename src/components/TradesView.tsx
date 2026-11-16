@@ -227,7 +227,7 @@ export function TradesView({
                   onClick={() => setShowMt5Modal(true)}
                   className="glass-control inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl"
                 >
-                  <FileSpreadsheet className="w-4 h-4 text-[#B7FF00]" />
+                  <FileSpreadsheet className="w-4 h-4 text-[#FFD36A]" />
                   <span>Import MT5 CSV</span>
                 </button>
 
@@ -247,7 +247,7 @@ export function TradesView({
               <button
                 type="button"
                 onClick={onOpenAccountSettings}
-                className="glass-lime-cta inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
+                className="glass-gold-cta inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
               >
                 <Wallet className="w-4 h-4 stroke-[2.5]" />
                 <span>Connect Account First</span>
@@ -259,7 +259,7 @@ export function TradesView({
         {/* Floating Search & Filters Directly on Open Background */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
           <div className="lg:col-span-2 relative">
-            <Search className="w-4 h-4 text-[#B7FF00] absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
+            <Search className="w-4 h-4 text-[#FFD36A] absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
             <input
               type="text"
               value={search}
@@ -324,7 +324,7 @@ export function TradesView({
             <button
               type="button"
               onClick={onOpenAccountSettings}
-              className="glass-lime-cta inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-extrabold rounded-xl"
+              className="glass-gold-cta inline-flex items-center gap-2 px-6 py-3 text-xs sm:text-sm font-extrabold rounded-xl"
             >
               <Wallet className="w-4 h-4 stroke-[2.5]" />
               <span>Create Trading Account</span>
@@ -409,7 +409,7 @@ export function TradesView({
                         <button
                           type="button"
                           onClick={() => setInspectedTradeId(trade.id)}
-                          className="text-left hover:text-[#B7FF00] transition-colors"
+                          className="text-left hover:text-[#FFD36A] transition-colors"
                         >
                           <div className="font-bold text-[#E8D7A8] truncate">
                             {trade.setupType}
@@ -483,7 +483,7 @@ export function TradesView({
                             aria-label={`Edit trade ${trade.instrument} ${trade.setupType}`}
                             className="glass-control p-2 rounded-xl"
                           >
-                            <Edit3 className="w-3.5 h-3.5 text-[#B7FF00]" />
+                            <Edit3 className="w-3.5 h-3.5 text-[#FFD36A]" />
                           </button>
                           {isConfirming ? (
                             <div className="inline-flex items-center gap-1 ml-1">
@@ -577,7 +577,7 @@ export function TradesView({
                   aria-label="Close trade inspector"
                   className="glass-control p-2 rounded-xl"
                 >
-                  <X className="w-4 h-4 text-[#B7FF00]" />
+                  <X className="w-4 h-4 text-[#E8D7A8]" />
                 </button>
               </div>
             </div>
@@ -674,7 +674,7 @@ export function TradesView({
 
                 <div className="flex items-center gap-2">
                   <label className="glass-control inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-xl cursor-pointer">
-                    <ImagePlus className="w-3.5 h-3.5 text-[#B7FF00]" />
+                    <ImagePlus className="w-3.5 h-3.5 text-[#FFD36A]" />
                     <span>Upload Before</span>
                     <input
                       type="file"
@@ -689,7 +689,7 @@ export function TradesView({
                   </label>
 
                   <label className="glass-control inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-xl cursor-pointer">
-                    <Upload className="w-3.5 h-3.5 text-[#B7FF00]" />
+                    <Upload className="w-3.5 h-3.5 text-[#FFD36A]" />
                     <span>Upload After</span>
                     <input
                       type="file"
@@ -1081,7 +1081,7 @@ function TradeFormModal({
             aria-label="Close trade form"
             className="glass-control p-2 rounded-xl"
           >
-            <X className="w-4 h-4 text-[#B7FF00]" />
+            <X className="w-4 h-4 text-[#E8D7A8]" />
           </button>
         </div>
 
@@ -1204,7 +1204,7 @@ function TradeFormModal({
                 <button
                   type="button"
                   onClick={applySuggestedLot}
-                  className="text-xs font-mono font-extrabold text-[#B7FF00] hover:underline"
+                  className="text-xs font-mono font-extrabold text-[#FFD36A] hover:underline"
                 >
                   Use {liveRisk.lotSize.toFixed(2)} ({liveRisk.riskRewardRatio}R)
                 </button>
@@ -1440,7 +1440,7 @@ function TradeFormModal({
             </button>
             <button
               type="submit"
-              className="glass-lime-cta px-6 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
+              className="glass-gold-cta px-6 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
             >
               {initialTrade ? 'Save Changes' : 'Record Trade'}
             </button>
@@ -1523,13 +1523,13 @@ function Mt5ImportModal({
             aria-label="Close MT5 import modal"
             className="glass-control p-2 rounded-xl"
           >
-            <X className="w-4 h-4 text-[#B7FF00]" />
+            <X className="w-4 h-4 text-[#E8D7A8]" />
           </button>
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-2">
           <label className="glass-control inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold rounded-xl cursor-pointer">
-            <Upload className="w-4 h-4 text-[#B7FF00]" />
+            <Upload className="w-4 h-4 text-[#FFD36A]" />
             <span>Choose MT5 CSV/TSV File</span>
             <input
               type="file"
@@ -1545,7 +1545,7 @@ function Mt5ImportModal({
           <button
             type="button"
             onClick={loadSampleMt5}
-            className="text-xs font-extrabold text-[#B7FF00] hover:underline"
+            className="text-xs font-extrabold text-[#FFD36A] hover:underline"
           >
             Load sample MT5 CSV
           </button>
@@ -1583,7 +1583,7 @@ function Mt5ImportModal({
             type="button"
             disabled={!parsed || parsed.trades.length === 0}
             onClick={() => parsed && onImport(parsed.trades)}
-            className="glass-lime-cta px-6 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl disabled:opacity-40"
+            className="glass-gold-cta px-6 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl disabled:opacity-40"
           >
             Import {parsed?.trades.length || 0} Trades
           </button>

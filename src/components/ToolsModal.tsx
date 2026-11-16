@@ -247,11 +247,11 @@ export function ToolsModal({
               onClick={() => setTab('risk')}
               className={`inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all ${
                 tab === 'risk'
-                  ? 'glass-control-active text-[#F4FFCC]'
+                  ? 'glass-control-active text-[#FAF6EE]'
                   : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
               }`}
             >
-              <Calculator className="w-4 h-4 text-[#B7FF00]" />
+              <Calculator className="w-4 h-4 text-[#FFD36A]" />
               <span>Position Size &amp; Risk</span>
             </button>
             <button
@@ -259,11 +259,11 @@ export function ToolsModal({
               onClick={() => setTab('strategy')}
               className={`inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all ${
                 tab === 'strategy'
-                  ? 'glass-control-active text-[#F4FFCC]'
+                  ? 'glass-control-active text-[#FAF6EE]'
                   : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
               }`}
             >
-              <Layers className="w-4 h-4 text-[#B7FF00]" />
+              <Layers className="w-4 h-4 text-[#FFD36A]" />
               <span>15m ORB &amp; Confluences</span>
             </button>
             <button
@@ -271,11 +271,11 @@ export function ToolsModal({
               onClick={() => setTab('accounts')}
               className={`inline-flex items-center gap-2 px-4 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all ${
                 tab === 'accounts'
-                  ? 'glass-control-active text-[#F4FFCC]'
+                  ? 'glass-control-active text-[#FAF6EE]'
                   : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
               }`}
             >
-              <SlidersHorizontal className="w-4 h-4 text-[#B7FF00]" />
+              <SlidersHorizontal className="w-4 h-4 text-[#FFD36A]" />
               <span>Accounts, Ledger &amp; Install</span>
             </button>
           </div>
@@ -286,7 +286,7 @@ export function ToolsModal({
             aria-label="Close tools modal"
             className="glass-control p-2.5 rounded-xl"
           >
-            <X className="w-4 h-4 text-[#B7FF00]" />
+            <X className="w-4 h-4 text-[#E8D7A8]" />
           </button>
         </div>
 
@@ -301,7 +301,7 @@ export function ToolsModal({
                 <button
                   type="button"
                   onClick={() => setEditingSpec((v) => !v)}
-                  className="text-xs font-extrabold text-[#B7FF00] hover:underline"
+                  className="text-xs font-extrabold text-[#FFD36A] hover:underline"
                 >
                   {editingSpec ? 'Hide Contract Specs' : `Edit ${selectedSpec.symbol} Specs`}
                 </button>
@@ -543,7 +543,7 @@ export function ToolsModal({
                     lotSize: riskResult.lotSize,
                   })
                 }
-                className="glass-lime-cta w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 text-xs sm:text-sm font-extrabold rounded-xl disabled:opacity-40"
+                className="glass-gold-cta w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 text-xs sm:text-sm font-extrabold rounded-xl disabled:opacity-40"
               >
                 <span>
                   {activeAccount
@@ -869,7 +869,7 @@ export function ToolsModal({
                       onClick={() => onSwitchAccount(acc.id)}
                       className={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                         activeAccount && acc.id === activeAccount.id
-                          ? 'glass-control-active text-[#B7FF00]'
+                          ? 'glass-control-active text-[#FFD36A]'
                           : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                       }`}
                     >
@@ -1077,7 +1077,7 @@ export function ToolsModal({
                       />
                       <button
                         type="submit"
-                        className="glass-lime-cta sm:col-span-3 px-4 py-2.5 text-xs font-extrabold rounded-xl"
+                        className="glass-gold-cta sm:col-span-3 px-4 py-2.5 text-xs font-extrabold rounded-xl"
                       >
                         Record
                       </button>
@@ -1182,7 +1182,7 @@ export function ToolsModal({
                   <button
                     type="button"
                     onClick={handleCreateNewAccount}
-                    className="glass-lime-cta inline-flex items-center gap-1.5 px-5 py-2.5 font-extrabold rounded-xl"
+                    className="glass-gold-cta inline-flex items-center gap-1.5 px-5 py-2.5 font-extrabold rounded-xl"
                   >
                     <Plus className="w-4 h-4 stroke-[3]" />
                     <span>Create Account</span>
@@ -1249,7 +1249,7 @@ export function ToolsModal({
                   <button
                     type="button"
                     onClick={handleDownloadBackup}
-                    className="glass-lime-cta w-full inline-flex items-center justify-center gap-2 py-3 px-4 text-xs sm:text-sm font-extrabold rounded-xl"
+                    className="glass-gold-cta w-full inline-flex items-center justify-center gap-2 py-3 px-4 text-xs sm:text-sm font-extrabold rounded-xl"
                   >
                     <Download className="w-4 h-4 stroke-[2.5]" />
                     <span>Export Full JSON Backup</span>
@@ -1271,7 +1271,7 @@ export function ToolsModal({
                     onClick={() => fileInputRef.current?.click()}
                     className="glass-control w-full inline-flex items-center justify-center gap-2 py-3 px-4 text-xs sm:text-sm font-bold rounded-xl"
                   >
-                    <Upload className="w-4 h-4 text-[#B7FF00]" />
+                    <Upload className="w-4 h-4 text-[#FFD36A]" />
                     <span>Restore From Backup JSON</span>
                   </button>
                 </div>
@@ -1305,7 +1305,7 @@ export function ToolsModal({
                       onClick={() => setConfirmReset('loadSample')}
                       className="glass-control inline-flex items-center gap-1.5 px-4 py-2 text-xs font-bold rounded-xl"
                     >
-                      <Database className="w-3.5 h-3.5 text-[#B7FF00]" />
+                      <Database className="w-3.5 h-3.5 text-[#FFD36A]" />
                       <span>Load Demo Dataset</span>
                     </button>
                   </div>

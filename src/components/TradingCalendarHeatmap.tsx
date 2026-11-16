@@ -131,7 +131,7 @@ export function TradingCalendarHeatmap({
             aria-label="Previous month"
             className="glass-control p-2.5 rounded-xl"
           >
-            <ChevronLeft className="w-4 h-4 text-[#B7FF00]" />
+            <ChevronLeft className="w-4 h-4 text-[#E8D7A8]" />
           </button>
           <span className="text-xs sm:text-sm font-mono font-extrabold text-[#FAF6EE] min-w-[140px] text-center">
             {monthTitle}
@@ -142,7 +142,7 @@ export function TradingCalendarHeatmap({
             aria-label="Next month"
             className="glass-control p-2.5 rounded-xl"
           >
-            <ChevronRight className="w-4 h-4 text-[#B7FF00]" />
+            <ChevronRight className="w-4 h-4 text-[#E8D7A8]" />
           </button>
         </div>
       </div>
@@ -222,7 +222,7 @@ export function TradingCalendarHeatmap({
               ? LOSS_TIER_CLASSES[intensity.tier]
               : stat
               ? 'bg-[#24180F]/65 border-[#E8D7A8]/28 text-[#FAF6EE]'
-              : 'glass-well text-[#9C8C72] hover:border-[#B7FF00]/55 hover:text-[#E8D7A8]';
+              : 'glass-well text-[#9C8C72] hover:border-[#FFD36A]/45 hover:text-[#E8D7A8]';
 
           const accessibleLabel = stat
             ? `${cell.dateKey}: ${formatSignedCurrency(stat.pnl, currency)}, ${stat.tradesCount} trades`
@@ -236,8 +236,8 @@ export function TradingCalendarHeatmap({
               aria-label={accessibleLabel}
               aria-pressed={isSelected}
               data-heatmap-tier={`${intensity.direction}-${intensity.tier}`}
-              className={`min-h-[68px] sm:min-h-[82px] p-2 sm:p-2.5 rounded-2xl border text-left flex flex-col justify-between transition-all hover:scale-[1.015] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B7FF00] ${cellTone} ${
-                isSelected ? 'ring-2 ring-[#B7FF00] ring-offset-2 ring-offset-[#050505]' : ''
+              className={`min-h-[68px] sm:min-h-[82px] p-2 sm:p-2.5 rounded-2xl border text-left flex flex-col justify-between transition-all hover:scale-[1.015] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD36A] ${cellTone} ${
+                isSelected ? 'ring-2 ring-[#FFD36A] ring-offset-2 ring-offset-[#050505]' : ''
               }`}
             >
               <span className="text-xs font-mono font-bold opacity-90">{cell.day}</span>
@@ -265,7 +265,7 @@ export function TradingCalendarHeatmap({
         >
           <div className="flex flex-wrap items-center justify-between gap-2">
             <div className="flex items-center gap-2 text-xs sm:text-sm font-mono font-bold">
-              <span className="text-[#B7FF00] font-extrabold">{selectedDate}</span>
+              <span className="text-[#FFD36A] font-extrabold">{selectedDate}</span>
               <span className="text-[#E8D7A8]/30" aria-hidden="true">
                 ·
               </span>
@@ -298,7 +298,7 @@ export function TradingCalendarHeatmap({
               aria-label="Close day summary"
               className="glass-control p-2 rounded-xl"
             >
-              <X className="w-3.5 h-3.5 text-[#B7FF00]" />
+              <X className="w-3.5 h-3.5 text-[#E8D7A8]" />
             </button>
           </div>
 
@@ -313,7 +313,7 @@ export function TradingCalendarHeatmap({
                   key={t.id}
                   type="button"
                   onClick={() => onInspectTrade(t)}
-                  className="w-full py-3.5 flex items-center justify-between gap-3 text-left text-xs sm:text-sm hover:bg-[#B7FF00]/[0.05] px-2 -mx-2 rounded-xl transition-colors"
+                  className="w-full py-3.5 flex items-center justify-between gap-3 text-left text-xs sm:text-sm hover:bg-[#E8D7A8]/[0.05] px-2 -mx-2 rounded-xl transition-colors"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 font-mono font-bold">

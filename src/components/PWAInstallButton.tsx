@@ -25,7 +25,7 @@ export function PWAInstallButton({ compact = false }: PWAInstallButtonProps) {
           compact ? 'px-3 py-2' : 'px-4 py-2.5'
         }`}
       >
-        <Download className="w-3.5 h-3.5 text-[#B7FF00]" />
+        <Download className="w-3.5 h-3.5 text-[#FFD36A]" />
         <span className={compact ? 'hidden xl:inline' : ''}>Install App</span>
       </button>
     );
@@ -42,7 +42,7 @@ export function PWAInstallButton({ compact = false }: PWAInstallButtonProps) {
           compact ? 'px-3 py-2' : 'px-4 py-2.5'
         }`}
       >
-        <MonitorSmartphone className="w-3.5 h-3.5 text-[#B7FF00]" />
+        <MonitorSmartphone className="w-3.5 h-3.5 text-[#FFD36A]" />
         <span className={compact ? 'hidden xl:inline' : ''}>Install</span>
       </button>
 
@@ -69,14 +69,14 @@ export function PWAInstallButton({ compact = false }: PWAInstallButtonProps) {
                 aria-label="Close install guide"
                 className="glass-control p-2 rounded-xl"
               >
-                <X className="w-4 h-4 text-[#B7FF00]" />
+                <X className="w-4 h-4 text-[#E8D7A8]" />
               </button>
             </div>
 
             <div className="divide-y divide-[#E8D7A8]/14 text-xs sm:text-sm font-semibold text-[#E8D7A8] leading-relaxed">
               {isIOS ? (
                 <div className="py-2 space-y-1.5">
-                  <div className="font-bold text-[#B7FF00]">iPhone / iPad (Safari)</div>
+                  <div className="font-bold text-[#FFD36A]">iPhone / iPad (Safari)</div>
                   <p>1. Tap the Share button in Safari&apos;s toolbar.</p>
                   <p>2. Scroll down and tap &ldquo;Add to Home Screen&rdquo;.</p>
                   <p>3. Launch Axiom TOS directly from your home screen.</p>
@@ -90,7 +90,7 @@ export function PWAInstallButton({ compact = false }: PWAInstallButtonProps) {
                     </p>
                   </div>
                   <div className="pt-4 space-y-1.5">
-                    <div className="font-bold text-[#B7FF00]">Android (Chrome)</div>
+                    <div className="font-bold text-[#FFD36A]">Android (Chrome)</div>
                     <p>
                       Open the browser menu (&vellip;) and tap <strong className="text-[#FAF6EE]">Install app</strong> or <strong className="text-[#FAF6EE]">Add to Home screen</strong> to install Axiom TOS like a native Android app.
                     </p>
@@ -102,7 +102,7 @@ export function PWAInstallButton({ compact = false }: PWAInstallButtonProps) {
             <button
               type="button"
               onClick={() => setShowGuide(false)}
-              className="glass-lime-cta w-full py-3 text-xs sm:text-sm font-extrabold rounded-xl"
+              className="glass-gold-cta w-full py-3 text-xs sm:text-sm font-extrabold rounded-xl"
             >
               Done
             </button>

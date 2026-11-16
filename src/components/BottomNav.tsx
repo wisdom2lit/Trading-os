@@ -29,10 +29,10 @@ export function BottomNav({
   onOpenTool,
 }: BottomNavProps) {
   const navButtonClass = (isActive: boolean) =>
-    `group relative flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-2 px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl text-[11px] sm:text-xs font-bold transition-all whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B7FF00] ${
+    `group relative flex flex-col sm:flex-row items-center justify-center gap-0.5 sm:gap-2 px-2 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl text-[11px] sm:text-xs font-bold transition-all whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD36A] ${
       isActive
-        ? 'glass-control-active text-[#F4FFCC]'
-        : 'text-[#C9BA9E] hover:text-[#FAF6EE] hover:bg-[#B7FF00]/[0.07] border border-transparent'
+        ? 'glass-control-active text-[#FAF6EE]'
+        : 'text-[#C9BA9E] hover:text-[#FAF6EE] hover:bg-[#E8D7A8]/[0.06] border border-transparent'
     }`;
 
   return (
@@ -44,7 +44,7 @@ export function BottomNav({
             <button
               type="button"
               onClick={() => onNavigate('home')}
-              className="inline-flex items-center gap-2 text-left whitespace-nowrap group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#B7FF00] rounded-xl px-1.5 py-1"
+              className="inline-flex items-center gap-2 text-left whitespace-nowrap group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#FFD36A] rounded-xl px-1.5 py-1"
             >
               <svg
                 width="20"
@@ -52,7 +52,7 @@ export function BottomNav({
                 viewBox="0 0 24 24"
                 fill="none"
                 aria-hidden="true"
-                className="text-[#E8D7A8] group-hover:text-[#B7FF00] transition-colors"
+                className="text-[#E8D7A8] group-hover:text-[#FFD36A] transition-colors"
               >
                 <path
                   d="M12 2.5L20.5 19.5H16L12 11.2L8 19.5H3.5L12 2.5Z"
@@ -60,7 +60,7 @@ export function BottomNav({
                   strokeWidth="2"
                   strokeLinejoin="round"
                 />
-                <path d="M8.5 16H15.5" stroke="#B7FF00" strokeWidth="2.1" strokeLinecap="round" />
+                <path d="M8.5 16H15.5" stroke="#FFD36A" strokeWidth="2.1" strokeLinecap="round" />
               </svg>
               <span className="font-display text-sm font-extrabold tracking-tight text-[#FAF6EE]">
                 Axiom TOS
@@ -73,7 +73,7 @@ export function BottomNav({
               className="hidden xl:flex items-center gap-2 text-xs font-mono font-bold tabular-nums whitespace-nowrap"
               aria-label="Live market session telemetry"
             >
-              <span className="text-[#B7FF00]">{utcTimeLabel}</span>
+              <span className="text-[#FFD36A]">{utcTimeLabel}</span>
               <span aria-hidden="true" className="text-[#E8D7A8]/35">
                 ·
               </span>
@@ -94,7 +94,7 @@ export function BottomNav({
             >
               <Home
                 className={`w-[18px] h-[18px] sm:w-4 sm:h-4 ${
-                  activeSection === 'home' ? 'text-[#B7FF00]' : ''
+                  activeSection === 'home' ? 'text-[#FFD36A]' : ''
                 }`}
               />
               <span>Home</span>
@@ -108,7 +108,7 @@ export function BottomNav({
             >
               <CheckSquare
                 className={`w-[18px] h-[18px] sm:w-4 sm:h-4 ${
-                  activeSection === 'checklist' ? 'text-[#B7FF00]' : ''
+                  activeSection === 'checklist' ? 'text-[#FFD36A]' : ''
                 }`}
               />
               <span>Checklist</span>
@@ -133,7 +133,7 @@ export function BottomNav({
             >
               <BarChart3
                 className={`w-[18px] h-[18px] sm:w-4 sm:h-4 ${
-                  activeSection === 'dashboard' ? 'text-[#B7FF00]' : ''
+                  activeSection === 'dashboard' ? 'text-[#FFD36A]' : ''
                 }`}
               />
               <span>Dashboard</span>
@@ -147,14 +147,14 @@ export function BottomNav({
             >
               <BookOpen
                 className={`w-[18px] h-[18px] sm:w-4 sm:h-4 ${
-                  activeSection === 'trades' ? 'text-[#B7FF00]' : ''
+                  activeSection === 'trades' ? 'text-[#FFD36A]' : ''
                 }`}
               />
               <span>Trades</span>
             </button>
           </nav>
 
-          {/* Far Right (Desktop/Tablet): Electric-Lime Liquid Glass Workstation Tools */}
+          {/* Far Right (Desktop/Tablet): Liquid Glass Workstation Tools */}
           <div className="hidden md:flex items-center gap-2 shrink-0">
             <button
               type="button"
@@ -163,7 +163,7 @@ export function BottomNav({
               title="Risk Calculator"
               className="glass-control inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap shrink-0"
             >
-              <Calculator className="w-3.5 h-3.5 text-[#B7FF00]" />
+              <Calculator className="w-3.5 h-3.5 text-[#FFD36A]" />
               <span className="hidden xl:inline">Risk</span>
             </button>
 
@@ -174,7 +174,7 @@ export function BottomNav({
               title="15m ORB Strategy"
               className="glass-control inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold whitespace-nowrap shrink-0"
             >
-              <Layers className="w-3.5 h-3.5 text-[#B7FF00]" />
+              <Layers className="w-3.5 h-3.5 text-[#FFD36A]" />
               <span className="hidden xl:inline">ORB</span>
             </button>
 
@@ -185,7 +185,7 @@ export function BottomNav({
               title="Accounts, Cash Ledger & Backup"
               className="glass-control inline-flex items-center justify-center p-2.5 rounded-xl shrink-0"
             >
-              <SlidersHorizontal className="w-4 h-4 text-[#B7FF00]" />
+              <SlidersHorizontal className="w-4 h-4 text-[#FFD36A]" />
             </button>
 
             <PWAInstallButton compact />

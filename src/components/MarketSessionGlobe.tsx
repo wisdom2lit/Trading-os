@@ -362,14 +362,14 @@ export function MarketSessionGlobe({ sessions, utcTimeLabel }: MarketSessionGlob
                 onClick={() => focusHub(hub)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                   active
-                    ? 'glass-control-active text-[#F4FFCC]'
+                    ? 'glass-control-active text-[#FAF6EE]'
                     : 'glass-control text-[#E8D7A8] hover:text-[#FAF6EE]'
                 }`}
               >
                 <span>{hub.city}</span>
                 <span
                   className={`ml-1.5 font-mono text-[11px] font-bold ${
-                    st?.isOpen ? 'text-[#B7FF00]' : 'text-[#9C8C72]'
+                    st?.isOpen ? 'text-[#FFD36A]' : 'text-[#9C8C72]'
                   }`}
                 >
                   {st?.isOpen ? 'ON' : 'OFF'}

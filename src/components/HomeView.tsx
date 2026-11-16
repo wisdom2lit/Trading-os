@@ -126,12 +126,14 @@ export function HomeView({
               </div>
             </div>
 
-            {/* Standout Electric-Lime Primary Action + Liquid Glass Secondary Controls */}
+            {/* Standout Primary Action + Liquid Glass Secondary Controls */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3.5">
               <button
                 type="button"
                 onClick={account ? onOpenNewTrade : () => onOpenTool('accounts')}
-                className="glass-lime-cta inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm font-extrabold tracking-wide whitespace-nowrap"
+                className={`${
+                  account ? 'glass-lime-cta' : 'glass-gold-cta'
+                } inline-flex items-center gap-2.5 px-7 py-3.5 rounded-2xl text-sm font-extrabold tracking-wide whitespace-nowrap`}
               >
                 {account ? (
                   <>
@@ -151,7 +153,7 @@ export function HomeView({
                 onClick={() => onNavigate('checklist')}
                 className="glass-control inline-flex items-center gap-2 px-5 py-3.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap"
               >
-                <CheckSquare className="w-4 h-4 text-[#B7FF00]" />
+                <CheckSquare className="w-4 h-4 text-[#FFD36A]" />
                 <span>Pre-Market ({checklistPct}%)</span>
               </button>
 
@@ -161,7 +163,7 @@ export function HomeView({
                 className="glass-control inline-flex items-center gap-1.5 px-4 py-3.5 rounded-2xl text-xs sm:text-sm font-bold whitespace-nowrap"
               >
                 <span>Analytics</span>
-                <ArrowUpRight className="w-4 h-4 text-[#B7FF00]" />
+                <ArrowUpRight className="w-4 h-4 text-[#E8D7A8]" />
               </button>
             </div>
 
@@ -228,7 +230,7 @@ export function HomeView({
                 <button
                   type="button"
                   onClick={() => onOpenTool('accounts')}
-                  className="text-[#B7FF00] hover:underline font-extrabold"
+                  className="text-[#FFD36A] hover:underline font-extrabold"
                 >
                   Setup Account &rarr;
                 </button>
@@ -267,14 +269,14 @@ export function HomeView({
           </div>
         </div>
 
-        {/* Electric-Lime Liquid Glass Workstation Portals */}
+        {/* Liquid Glass Workstation Portals */}
         <div className="lg:col-span-5 flex flex-wrap lg:justify-end gap-3">
           <button
             type="button"
             onClick={() => onOpenTool('risk')}
             className="glass-control inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold"
           >
-            <Calculator className="w-4 h-4 text-[#B7FF00]" />
+            <Calculator className="w-4 h-4 text-[#FFD36A]" />
             <span>Position Size</span>
           </button>
 
@@ -283,7 +285,7 @@ export function HomeView({
             onClick={() => onOpenTool('accounts')}
             className="glass-control inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold"
           >
-            <Wallet className="w-4 h-4 text-[#B7FF00]" />
+            <Wallet className="w-4 h-4 text-[#FFD36A]" />
             <span>Accounts &amp; Ledger</span>
           </button>
 
@@ -292,7 +294,7 @@ export function HomeView({
             onClick={() => onNavigate('trades')}
             className="glass-control inline-flex items-center gap-2 px-5 py-3 rounded-2xl text-xs sm:text-sm font-bold"
           >
-            <ShieldCheck className="w-4 h-4 text-[#B7FF00]" />
+            <ShieldCheck className="w-4 h-4 text-[#FFD36A]" />
             <span>Journal ({analytics.totalTrades})</span>
           </button>
         </div>

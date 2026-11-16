@@ -239,7 +239,7 @@ export function ScreenshotAnnotator({
             aria-label="Close annotation studio"
             className="glass-control p-2.5 rounded-xl"
           >
-            <X className="w-4 h-4 text-[#B7FF00]" />
+            <X className="w-4 h-4 text-[#E8D7A8]" />
           </button>
         </div>
 
@@ -255,7 +255,7 @@ export function ScreenshotAnnotator({
                   onClick={() => setPhase(p)}
                   className={`px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
                     phase === p
-                      ? 'glass-control-active text-[#F4FFCC]'
+                      ? 'glass-control-active text-[#FAF6EE]'
                       : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                   }`}
                 >
@@ -271,11 +271,11 @@ export function ScreenshotAnnotator({
                 onClick={() => setActiveTool('line')}
                 className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
                   activeTool === 'line'
-                    ? 'glass-control-active text-[#F4FFCC]'
+                    ? 'glass-control-active text-[#FAF6EE]'
                     : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                 }`}
               >
-                <Minus className="w-3.5 h-3.5 -rotate-45 text-[#B7FF00]" />
+                <Minus className="w-3.5 h-3.5 -rotate-45 text-[#FFD36A]" />
                 <span>Line</span>
               </button>
               <button
@@ -283,11 +283,11 @@ export function ScreenshotAnnotator({
                 onClick={() => setActiveTool('rect')}
                 className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
                   activeTool === 'rect'
-                    ? 'glass-control-active text-[#F4FFCC]'
+                    ? 'glass-control-active text-[#FAF6EE]'
                     : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                 }`}
               >
-                <Square className="w-3.5 h-3.5 text-[#B7FF00]" />
+                <Square className="w-3.5 h-3.5 text-[#FFD36A]" />
                 <span>Zone Box</span>
               </button>
               <button
@@ -295,11 +295,11 @@ export function ScreenshotAnnotator({
                 onClick={() => setActiveTool('text')}
                 className={`inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-xl transition-all ${
                   activeTool === 'text'
-                    ? 'glass-control-active text-[#F4FFCC]'
+                    ? 'glass-control-active text-[#FAF6EE]'
                     : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                 }`}
               >
-                <Type className="w-3.5 h-3.5 text-[#B7FF00]" />
+                <Type className="w-3.5 h-3.5 text-[#FFD36A]" />
                 <span>Text Label</span>
               </button>
             </div>
@@ -314,7 +314,7 @@ export function ScreenshotAnnotator({
                   aria-label={`Annotation color ${c.label}`}
                   className={`w-5 h-5 rounded-lg border transition-transform ${
                     activeColor === c.hex
-                      ? 'scale-110 ring-2 ring-[#B7FF00] ring-offset-2 ring-offset-[#050505]'
+                      ? 'scale-110 ring-2 ring-[#FFD36A] ring-offset-2 ring-offset-[#050505]'
                       : 'border-[#E8D7A8]/30 opacity-75 hover:opacity-100'
                   }`}
                   style={{ backgroundColor: c.hex }}
@@ -330,7 +330,7 @@ export function ScreenshotAnnotator({
               disabled={shapes.length === 0}
               className="glass-control inline-flex items-center gap-1.5 px-3.5 py-2 text-xs font-bold rounded-xl disabled:opacity-40"
             >
-              <Undo2 className="w-3.5 h-3.5 text-[#B7FF00]" />
+              <Undo2 className="w-3.5 h-3.5 text-[#E8D7A8]" />
               <span>Undo</span>
             </button>
             <button
@@ -351,7 +351,7 @@ export function ScreenshotAnnotator({
             onSubmit={commitTextAnnotation}
             className="flex flex-wrap items-center gap-2.5 pt-2"
           >
-            <span className="text-xs text-[#B7FF00] font-mono font-bold">Text label:</span>
+            <span className="text-xs text-[#FFD36A] font-mono font-bold">Text label:</span>
             <input
               type="text"
               autoFocus
@@ -362,7 +362,7 @@ export function ScreenshotAnnotator({
             />
             <button
               type="submit"
-              className="glass-lime-cta px-4 py-2.5 text-xs font-extrabold rounded-xl"
+              className="glass-gold-cta px-4 py-2.5 text-xs font-extrabold rounded-xl"
             >
               Place Text
             </button>
@@ -411,7 +411,7 @@ export function ScreenshotAnnotator({
             <button
               type="button"
               onClick={handleSave}
-              className="glass-lime-cta inline-flex items-center gap-1.5 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
+              className="glass-gold-cta inline-flex items-center gap-1.5 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
             >
               <Check className="w-4 h-4 stroke-[3]" />
               <span>Save Annotated Screenshot</span>

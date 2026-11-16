@@ -164,9 +164,9 @@
   border: 1px solid rgba(232, 215, 168, 0.24);
   box-shadow:
     inset 0 1.5px 0 rgba(255, 250, 232, 0.34),
-    inset 0 -1px 0 rgba(183, 255, 0, 0.12),
+    inset 0 -1px 0 rgba(255, 211, 106, 0.14),
     0 28px 60px -16px rgba(0, 0, 0, 0.96),
-    0 0 40px -18px rgba(183, 255, 0, 0.16);
+    0 0 40px -18px rgba(255, 211, 106, 0.18);
 }
 
 .glass-dock::before {
@@ -212,29 +212,26 @@
 }
 
 /* ==========================================================================
-   2. Electric Lime Liquid Glass Buttons & Frosted Controls
+   2. Liquid Glass Controls, Warm Gold CTAs & Electric Lime Log Trade Hero
    ========================================================================== */
 
-/* Secondary Liquid Glass Action Button — Electric Lime Accent Trim & Specular Rim */
+/* Secondary Liquid Glass Control — Warm Obsidian & Champagne Gold Rim */
 .glass-control {
   position: relative;
   overflow: hidden;
   background: linear-gradient(
     145deg,
-    rgba(42, 30, 16, 0.56) 0%,
-    rgba(12, 11, 7, 0.74) 65%,
-    rgba(183, 255, 0, 0.09) 100%
+    rgba(36, 24, 15, 0.44) 0%,
+    rgba(12, 9, 7, 0.72) 100%
   );
-  backdrop-filter: blur(18px) saturate(165%);
-  -webkit-backdrop-filter: blur(18px) saturate(165%);
-  border: 1px solid rgba(183, 255, 0, 0.34);
-  color: #f4f9e2;
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(232, 215, 168, 0.2);
+  color: #e8d7a8;
   font-weight: 700;
   box-shadow:
-    inset 0 1px 0 rgba(246, 255, 214, 0.28),
-    inset 0 -1px 0 rgba(183, 255, 0, 0.12),
-    0 10px 24px -12px rgba(0, 0, 0, 0.88),
-    0 0 18px -10px rgba(183, 255, 0, 0.26);
+    inset 0 1px 0 rgba(255, 248, 224, 0.2),
+    0 10px 24px -12px rgba(0, 0, 0, 0.85);
   transition:
     transform 170ms cubic-bezier(0.16, 1, 0.3, 1),
     border-color 180ms ease,
@@ -244,49 +241,106 @@
 }
 
 .glass-control:hover:not(:disabled) {
-  border-color: rgba(183, 255, 0, 0.72);
-  color: #ffffff;
+  border-color: rgba(255, 211, 106, 0.48);
+  color: #faf6ee;
   transform: translateY(-1px);
   background: linear-gradient(
     145deg,
-    rgba(52, 42, 18, 0.68) 0%,
-    rgba(17, 19, 8, 0.82) 60%,
-    rgba(183, 255, 0, 0.18) 100%
+    rgba(56, 38, 23, 0.56) 0%,
+    rgba(18, 13, 9, 0.8) 100%
   );
   box-shadow:
-    inset 0 1.5px 0 rgba(255, 255, 232, 0.4),
-    0 12px 28px -10px rgba(0, 0, 0, 0.92),
-    0 0 24px -6px rgba(183, 255, 0, 0.38);
+    inset 0 1.5px 0 rgba(255, 250, 232, 0.32),
+    0 12px 28px -10px rgba(0, 0, 0, 0.9),
+    0 0 22px -8px rgba(255, 211, 106, 0.24);
 }
 
 .glass-control:active:not(:disabled) {
   transform: scale(0.975);
 }
 
-/* Active Selected Tab / Segmented State — Luminous Electric Lime Glass */
+/* Active Selected Tab / Segmented State — Luminous Warm Gold Glass */
 .glass-control-active {
   position: relative;
   overflow: hidden;
   background: linear-gradient(
     145deg,
-    rgba(183, 255, 0, 0.24) 0%,
-    rgba(36, 28, 12, 0.78) 62%,
-    rgba(12, 12, 6, 0.88) 100%
+    rgba(255, 211, 106, 0.16) 0%,
+    rgba(36, 24, 15, 0.72) 56%,
+    rgba(14, 10, 7, 0.86) 100%
   );
   backdrop-filter: blur(18px) saturate(175%);
   -webkit-backdrop-filter: blur(18px) saturate(175%);
-  border: 1px solid rgba(183, 255, 0, 0.68);
-  color: #f6ffd4;
+  border: 1px solid rgba(255, 211, 106, 0.52);
+  color: #faf6ee;
   font-weight: 700;
   box-shadow:
-    inset 0 1.5px 0 rgba(246, 255, 212, 0.4),
-    0 0 24px -6px rgba(183, 255, 0, 0.44);
+    inset 0 1.5px 0 rgba(255, 246, 212, 0.34),
+    0 0 24px -6px rgba(255, 211, 106, 0.28);
 }
 
-/* Primary Action Button — High-Contrast Liquid Crystal Electric Lime (#B7FF00) */
-.glass-lime-cta,
+/* Standard Primary CTA — Liquid Champagne Gold (Used for all non-Log-Trade primary actions) */
 .glass-gold-cta,
 .glass-emerald-cta {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    #ffe79e 0%,
+    #ffd36a 48%,
+    #dfa83b 100%
+  );
+  color: #140d09;
+  font-weight: 800;
+  border: 1px solid rgba(255, 245, 208, 0.85);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.85),
+    inset 0 -1.5px 0 rgba(74, 48, 12, 0.28),
+    0 12px 30px -8px rgba(255, 211, 106, 0.44);
+  transition:
+    transform 170ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 190ms ease,
+    filter 170ms ease;
+}
+
+.glass-gold-cta::after,
+.glass-emerald-cta::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    115deg,
+    transparent 18%,
+    rgba(255, 255, 255, 0.44) 48%,
+    transparent 76%
+  );
+  transform: translateX(-65%);
+  transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-gold-cta:hover:not(:disabled),
+.glass-emerald-cta:hover:not(:disabled) {
+  filter: brightness(1.06);
+  transform: translateY(-1.5px);
+  box-shadow:
+    inset 0 1.5px 0 rgba(255, 255, 255, 0.94),
+    inset 0 -1.5px 0 rgba(74, 48, 12, 0.28),
+    0 16px 36px -6px rgba(255, 211, 106, 0.62);
+}
+
+.glass-gold-cta:hover:not(:disabled)::after,
+.glass-emerald-cta:hover:not(:disabled)::after {
+  transform: translateX(65%);
+}
+
+.glass-gold-cta:active:not(:disabled),
+.glass-emerald-cta:active:not(:disabled) {
+  transform: scale(0.972);
+}
+
+/* Exclusive Log Trade CTA — Liquid Crystal Electric Lime (#B7FF00) */
+.glass-lime-cta {
   position: relative;
   overflow: hidden;
   background: linear-gradient(
@@ -308,9 +362,7 @@
     filter 170ms ease;
 }
 
-.glass-lime-cta::after,
-.glass-gold-cta::after,
-.glass-emerald-cta::after {
+.glass-lime-cta::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -325,9 +377,7 @@
   transition: transform 520ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-lime-cta:hover:not(:disabled),
-.glass-gold-cta:hover:not(:disabled),
-.glass-emerald-cta:hover:not(:disabled) {
+.glass-lime-cta:hover:not(:disabled) {
   filter: brightness(1.06);
   transform: translateY(-1.5px);
   box-shadow:
@@ -336,15 +386,11 @@
     0 16px 40px -4px rgba(183, 255, 0, 0.74);
 }
 
-.glass-lime-cta:hover:not(:disabled)::after,
-.glass-gold-cta:hover:not(:disabled)::after,
-.glass-emerald-cta:hover:not(:disabled)::after {
+.glass-lime-cta:hover:not(:disabled)::after {
   transform: translateX(65%);
 }
 
-.glass-lime-cta:active:not(:disabled),
-.glass-gold-cta:active:not(:disabled),
-.glass-emerald-cta:active:not(:disabled) {
+.glass-lime-cta:active:not(:disabled) {
   transform: scale(0.972);
 }
 
@@ -432,15 +478,15 @@
 }
 
 .tos-input:hover:not(:disabled) {
-  border-color: rgba(183, 255, 0, 0.45);
+  border-color: rgba(255, 211, 106, 0.42);
 }
 
 .tos-input:focus {
   outline: none;
-  border-color: rgba(183, 255, 0, 0.82);
+  border-color: rgba(255, 211, 106, 0.78);
   box-shadow:
     inset 0 1px 0 rgba(255, 252, 232, 0.18),
-    0 0 0 3px rgba(183, 255, 0, 0.18);
+    0 0 0 3px rgba(255, 211, 106, 0.16);
 }
 
 select.tos-input option {
@@ -468,10 +514,10 @@ input[type="range"].glass-slider {
   background: linear-gradient(
     90deg,
     rgba(36, 24, 15, 0.78) 0%,
-    rgba(255, 211, 106, 0.28) 52%,
-    rgba(183, 255, 0, 0.44) 100%
+    rgba(232, 215, 168, 0.28) 52%,
+    rgba(255, 211, 106, 0.44) 100%
   );
-  border: 1px solid rgba(183, 255, 0, 0.3);
+  border: 1px solid rgba(232, 215, 168, 0.3);
   cursor: pointer;
 }
 
@@ -481,10 +527,10 @@ input[type="range"].glass-slider::-webkit-slider-thumb {
   width: 22px;
   height: 22px;
   border-radius: 9999px;
-  background: linear-gradient(145deg, #f2ffaa 0%, #b7ff00 55%, #84cc00 100%);
-  border: 1.5px solid rgba(255, 255, 240, 0.92);
+  background: linear-gradient(145deg, #fff1c2 0%, #ffd36a 55%, #d69c2c 100%);
+  border: 1.5px solid rgba(255, 252, 240, 0.92);
   box-shadow:
-    0 0 18px rgba(183, 255, 0, 0.72),
+    0 0 16px rgba(255, 211, 106, 0.62),
     inset 0 1px 0 rgba(255, 255, 255, 0.85);
   transition: transform 150ms ease;
 }
@@ -497,9 +543,9 @@ input[type="range"].glass-slider::-moz-range-thumb {
   width: 22px;
   height: 22px;
   border-radius: 9999px;
-  background: linear-gradient(145deg, #f2ffaa 0%, #b7ff00 55%, #84cc00 100%);
-  border: 1.5px solid rgba(255, 255, 240, 0.92);
-  box-shadow: 0 0 18px rgba(183, 255, 0, 0.72);
+  background: linear-gradient(145deg, #fff1c2 0%, #ffd36a 55%, #d69c2c 100%);
+  border: 1.5px solid rgba(255, 252, 240, 0.92);
+  box-shadow: 0 0 16px rgba(255, 211, 106, 0.62);
 }
 
 /* ==========================================================================

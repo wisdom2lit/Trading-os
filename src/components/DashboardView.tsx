@@ -103,12 +103,12 @@ export function DashboardView({
               className={
                 account
                   ? 'glass-control inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl'
-                  : 'glass-lime-cta inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl'
+                  : 'glass-gold-cta inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl'
               }
             >
               {account ? (
                 <>
-                  <ArrowDownUp className="w-4 h-4 text-[#B7FF00]" />
+                  <ArrowDownUp className="w-4 h-4 text-[#FFD36A]" />
                   <span>Accounts &amp; Cash Flow</span>
                 </>
               ) : (
@@ -254,7 +254,7 @@ export function DashboardView({
                 <button
                   type="button"
                   onClick={onOpenAccountSettings}
-                  className="glass-lime-cta px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
+                  className="glass-gold-cta px-5 py-2.5 text-xs sm:text-sm font-extrabold rounded-xl"
                 >
                   Create Account
                 </button>
@@ -517,7 +517,7 @@ export function DashboardView({
                 onClick={() => setBreakdownTab(tab.id)}
                 className={`px-4 py-2 text-xs font-bold rounded-xl transition-all ${
                   breakdownTab === tab.id
-                    ? 'glass-control-active text-[#F4FFCC]'
+                    ? 'glass-control-active text-[#FFD36A]'
                     : 'glass-control text-[#C9BA9E] hover:text-[#FAF6EE]'
                 }`}
               >
