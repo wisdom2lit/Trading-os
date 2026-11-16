@@ -3,8 +3,8 @@ import { AtmosphericBackdrop } from './components/AtmosphericBackdrop';
 import { ChecklistView } from './components/ChecklistView';
 import { DashboardView } from './components/DashboardView';
 import { HomeView } from './components/HomeView';
+import { BottomNav } from './components/BottomNav';
 import { ToolsModal } from './components/ToolsModal';
-import { TopNav } from './components/TopNav';
 import { TradesView } from './components/TradesView';
 import { computeAnalytics } from './core/analytics';
 import {
@@ -224,24 +224,7 @@ export default function App() {
       <AtmosphericBackdrop />
 
       <div className="relative z-10">
-        <TopNav
-          activeSection={activeSection}
-          onNavigate={(sec) => {
-            setInspectTrade(null);
-            setActiveSection(sec);
-          }}
-          selectedInstrument={state.selectedInstrument}
-          watchlist={state.watchlist}
-          onSelectInstrument={(symbol) =>
-            setState((prev) => ({ ...prev, selectedInstrument: symbol }))
-          }
-          activeSessionLabel={sessionSnapshot.activeLabel}
-          utcTimeLabel={sessionSnapshot.utcTimeLabel}
-          onOpenNewTrade={handleOpenNewTrade}
-          onOpenTool={(tab) => setToolModalTab(tab)}
-        />
-
-        <main className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10 pt-32 md:pt-24 pb-20">
+        <main className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-10 pt-7 sm:pt-10 pb-28 sm:pb-32">
           {storageWarning && (
             <div className="mb-6 p-3.5 rounded-2xl bg-rose-500/15 border border-rose-500/40 text-xs text-rose-200 flex items-center justify-between">
               <span>{storageWarning}</span>
@@ -326,6 +309,18 @@ export default function App() {
             />
           )}
         </main>
+
+        <BottomNav
+          activeSection={activeSection}
+          onNavigate={(sec) => {
+            setInspectTrade(null);
+            setActiveSection(sec);
+          }}
+          activeSessionLabel={sessionSnapshot.activeLabel}
+          utcTimeLabel={sessionSnapshot.utcTimeLabel}
+          onOpenNewTrade={handleOpenNewTrade}
+          onOpenTool={(tab) => setToolModalTab(tab)}
+        />
 
         {toolModalTab && (
           <ToolsModal

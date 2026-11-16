@@ -511,7 +511,7 @@ export function ChecklistView({
         </div>
 
         {/* Right Column: Luminous Liquid-Glass Session Plan Workbench */}
-        <aside className="lg:col-span-5 liquid-glass rounded-[28px] p-6 sm:p-7 space-y-5 lg:sticky lg:top-24">
+        <aside className="lg:col-span-5 liquid-glass rounded-[28px] p-6 sm:p-7 space-y-5 lg:sticky lg:top-6">
           <div className="flex items-center justify-between pb-3.5 border-b border-[#FAF6EF]/15">
             <h2 className="font-display text-base font-semibold text-[#FAF6EF]">
               Session Plan &amp; Readiness
